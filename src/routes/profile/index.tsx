@@ -1,5 +1,9 @@
 import { FunctionalComponent, h } from "preact";
+import Button from "preact-material-components/Button";
+import "preact-material-components/Button/style.css";
+import "preact-material-components/Theme/style.css";
 import { useEffect, useState } from "preact/hooks";
+import api from "../../utils/api";
 import * as style from "./style.css";
 
 interface Props {
@@ -27,6 +31,12 @@ const Profile: FunctionalComponent<Props> = (props: Props) => {
         setCount(count + 1);
     };
 
+    const getNameHandler = async () => {
+        const ret = await api.getUser("Testy McTestface");
+        console.log(ret);
+        setName(ret[0].name);
+    };
+
     return (
         <div class={style.profile}>
             <h1>Profile: {user}</h1>
@@ -39,6 +49,9 @@ const Profile: FunctionalComponent<Props> = (props: Props) => {
                 <button onClick={increment}>Click Me</button> Clicked {count}{" "}
                 times.
             </p>
+            <Button ripple raised onClick={async () => await getNameHandler()}>
+                Change name!
+            </Button>
         </div>
     );
 };

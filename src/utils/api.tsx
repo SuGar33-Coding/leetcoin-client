@@ -6,7 +6,8 @@ const BASE_URL = "http://localhost:5000";
 export default {
     getFoodData: async () => {
         const url = `${BASE_URL}/api/jokes/food`;
-        return axios.get(url).then(response => response.data);
+        const response = await axios.get(url);
+        return response.data;
     },
 
     // async function getCelebrityData() {
@@ -22,6 +23,7 @@ export default {
      */
     getUser: async (usr: string) => {
         const url = `${BASE_URL}/api/user/${usr}`;
-        return axios.get(url).then(res => res.data);
+        const res = await axios.get(url);
+        return res.data;
     }
 };
