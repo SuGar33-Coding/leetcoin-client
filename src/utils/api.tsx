@@ -1,7 +1,7 @@
 import axios from "axios";
 // import { getAccessToken } from "./AuthService";
 
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "http://192.168.0.41:5000";
 
 export const Api = {
     getFoodData: async () => {
