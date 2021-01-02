@@ -3,7 +3,7 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:5000";
 
-export default {
+export const Api = {
     getFoodData: async () => {
         const url = `${BASE_URL}/api/jokes/food`;
         const response = await axios.get(url);
@@ -25,5 +25,17 @@ export default {
         const url = `${BASE_URL}/api/user/${usr}`;
         const res = await axios.get(url);
         return res.data;
+    },
+
+    /**
+     *
+     * @param usr The username
+     * @param pswd The password
+     * @returns True if the login credentials are valid.
+     */
+    login: async (usr: string, pswd: string) => {
+        const url = `${BASE_URL}/api/login?user=${usr}&password=${pswd}`;
+        const res = await axios.get(url);
+        return res.status === 200;
     }
 };

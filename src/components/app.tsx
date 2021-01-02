@@ -17,7 +17,7 @@ const App: FunctionalComponent = () => {
             <Header />
             <Router onChange={handleRoute}>
                 <Route path="/" component={Transactions} />
-                <Route path="/profile/" component={Profile} user="me" />
+                <Route path="/profile/" component={Profile} />
                 <NotFoundPage default />
             </Router>
         </div>
