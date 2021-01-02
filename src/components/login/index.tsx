@@ -21,7 +21,7 @@ const Login: FunctionalComponent = () => {
         await Api.getUser("testy");
         Local.setName("BLEEP");
         alert(Local.getName());
-    }
+    };
 
     // React.ChangeEventHandler<HTMLInputElement>
     const handleUsernameFieldChange = (event: any): void => {
