@@ -34,6 +34,10 @@ const Profile: FunctionalComponent = () => {
         setName(ret[0].name);
     };
 
+    const handleLogout = () => {
+        Local.clear();
+    };
+
     const renderProfile = () => {
         return (
             <div class={style.profile}>
@@ -48,6 +52,8 @@ const Profile: FunctionalComponent = () => {
                 <button onClick={async () => await getNameHandler()}>
                     Change name!
                 </button>
+
+                <button onClick={handleLogout}>Logout</button>
             </div>
         );
     };

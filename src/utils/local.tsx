@@ -18,5 +18,11 @@ export const Local = {
     },
     setPass: (pass: string) => {
         localStorage.setItem(storeKeys.PASSWORD, pass);
+    },
+    /**
+     * Clears all data in local storage.
+     */
+    clear: () => {
+        localStorage.clear();
     }
 };

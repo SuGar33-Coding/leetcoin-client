@@ -13,7 +13,15 @@ const Login: FunctionalComponent = () => {
             Local.setName(userName);
             Local.setPass(password);
         }
+        alert(Local.getName());
     };
+
+    const test = async (event: any) => {
+        event.preventDefault();
+        await Api.getUser("testy");
+        Local.setName("BLEEP");
+        alert(Local.getName());
+    }
 
     // React.ChangeEventHandler<HTMLInputElement>
     const handleUsernameFieldChange = (event: any): void => {
@@ -25,15 +33,17 @@ const Login: FunctionalComponent = () => {
     };
 
     return (
-        <form onSubmit={handleFormSubmit}>
+        <form onSubmit={async event => await handleFormSubmit(event)}>
             <label>
-                Username
+                Username: <br />
                 <input type="text" onChange={handleUsernameFieldChange} />
             </label>
+            <br />
             <label>
-                Password
+                Password: <br />
                 <input type="text" onChange={handlePasswordFieldChange} />
             </label>
+            <br />
             <input type="submit" value="Login" />
         </form>
     );
