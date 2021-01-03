@@ -12,15 +12,14 @@ const Login: FunctionalComponent = () => {
         if (await Api.login(userName, password)) {
             Local.setName(userName);
             Local.setPass(password);
+        } else {
+            alert(
+                `${userName}, your login attempt has failed.` +
+                    "\n\nI would really appreciate it if you checked your credentials and tried logging in again." +
+                    "\n\nThank you for your consideration." +
+                    "\n - ur mom"
+            );
         }
-        alert(Local.getName());
-    };
-
-    const test = async (event: any) => {
-        event.preventDefault();
-        await Api.getUser("testy");
-        Local.setName("BLEEP");
-        alert(Local.getName());
     };
 
     // React.ChangeEventHandler<HTMLInputElement>

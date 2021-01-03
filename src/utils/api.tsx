@@ -1,30 +1,36 @@
-import axios from "axios";
-// import { getAccessToken } from "./AuthService";
+const BASE_URL = "http://192.168.0.41:5000/api";
 
-const BASE_URL = "http://192.168.0.41:5000";
+const fetchWrapper = {
+    get: async (url: string, params?: { [key: string]: string }) => {
+        let urlString = BASE_URL + url;
+        if (params) {
+            // add url params if passed any
+            urlString += "?";
+            for (const key in params) {
+                urlString += `${key}=${params[key]}&`;
+            }
+            urlString = urlString.slice(0, -1); // chop off last "&"
+        }
+        return await fetch(urlString, { method: "GET" });
+    }
+};
 
 export const Api = {
-    getFoodData: async () => {
-        const url = `${BASE_URL}/api/jokes/food`;
-        const response = await axios.get(url);
-        return response.data;
-    },
-
-    // async function getCelebrityData() {
-    //     const url = `${BASE_URL}/api/jokes/celebrity`;
-    //     return axios
-    //         .get(url, { headers: { Authorization: `Bearer ${getAccessToken()}` } })
-    //         .then(response => response.data);
-    // }
-
     /**
      * Get a user from the backend.
      * @param usr The user to fetch
      */
     getUser: async (usr: string) => {
-        const url = `${BASE_URL}/api/user/${usr}`;
-        const res = await axios.get(url);
-        return res.data;
+        const res = await fetchWrapper.get(`/api/user/${usr}`);
+        if (!res.ok) {
+            // return new Error();
+            // TODO: Make an actual error handler
+            return {
+                error: true,
+                msg: "something went wrong :("
+            };
+        }
+        return await res.json();
     },
 
     /**
@@ -34,8 +40,11 @@ export const Api = {
      * @returns True if the login credentials are valid.
      */
     login: async (usr: string, pswd: string) => {
-        const url = `${BASE_URL}/api/login?user=${usr}&password=${pswd}`;
-        const res = await axios.get(url);
-        return res.status === 200;
+        const params = {
+            user: usr,
+            password: pswd
+        };
+        const res = await fetchWrapper.get("/login", params);
+        return res.ok;
     }
 };
