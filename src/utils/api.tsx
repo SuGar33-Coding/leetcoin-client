@@ -12,6 +12,18 @@ const fetchWrapper = {
             urlString = urlString.slice(0, -1); // chop off last "&"
         }
         return await fetch(urlString, { method: "GET" });
+    },
+    post: async (url: string, params?: { [key: string]: string }) => {
+        let urlString = BASE_URL + url;
+        if (params) {
+            // add url params if passed any
+            urlString += "?";
+            for (const key in params) {
+                urlString += `${key}=${params[key]}&`;
+            }
+            urlString = urlString.slice(0, -1); // chop off last "&"
+        }
+        return await fetch(urlString, { method: "POST" });
     }
 };
 
@@ -45,6 +57,15 @@ export const Api = {
             password: pswd
         };
         const res = await fetchWrapper.get("/login", params);
+        return res.ok;
+    },
+
+    createAccount: async (usr: string, password: string) => {
+        const params = {
+            name: usr,
+            password
+        };
+        const res = await fetchWrapper.post("/user", params);
         return res.ok;
     }
 };

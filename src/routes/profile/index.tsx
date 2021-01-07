@@ -1,5 +1,6 @@
 import { FunctionalComponent, h } from "preact";
 import { useEffect, useState } from "preact/hooks";
+import CreateAccount from "../../components/create-account";
 import Login from "../../components/login";
 import { Api } from "../../utils/api";
 import { Local } from "../../utils/local";
@@ -10,6 +11,7 @@ const Profile: FunctionalComponent = () => {
     const [time, setTime] = useState<number>(Date.now());
     const [count, setCount] = useState<number>(0);
     const [name, setName] = useState<string>("Mr. Dr. Prof. Patrick");
+    const [isCreatingAccount, setIsCreatingAccount] = useState<boolean>(false);
 
     // gets called when this route is navigated to
     useEffect(() => {
@@ -28,12 +30,6 @@ const Profile: FunctionalComponent = () => {
         setCount(count + 1);
     };
 
-    const getNameHandler = async () => {
-        const ret = await Api.getUser("Testy McTestface");
-        console.log(ret);
-        setName(ret[0].name);
-    };
-
     const handleLogout = () => {
         Local.clear();
     };
@@ -49,9 +45,6 @@ const Profile: FunctionalComponent = () => {
                     <button onClick={increment}>Click Me</button> Clicked{" "}
                     {count} times.
                 </p>
-                <button onClick={async () => await getNameHandler()}>
-                    Change name!
-                </button>
 
                 <button onClick={handleLogout}>Logout</button>
             </div>
@@ -61,8 +54,20 @@ const Profile: FunctionalComponent = () => {
     const renderLogin = () => {
         return (
             <div class={style.profile}>
-                <h1>Please login</h1>
-                <Login />
+                {isCreatingAccount ? (
+                    <h1>Please input credentials</h1>
+                ) : (
+                    <h1>Please login</h1>
+                )}
+                {isCreatingAccount ? <CreateAccount /> : <Login />}
+                <br />
+                <button
+                    onClick={() => setIsCreatingAccount(!isCreatingAccount)}
+                >
+                    {isCreatingAccount
+                        ? "Log in instead"
+                        : "Create new account"}
+                </button>
             </div>
         );
     };
