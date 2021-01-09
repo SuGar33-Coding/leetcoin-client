@@ -7,17 +7,26 @@ import { Local } from "../../utils/local";
 import * as style from "./style.css";
 
 const Profile: FunctionalComponent = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
     const [time, setTime] = useState<number>(Date.now());
     const [count, setCount] = useState<number>(0);
-    const [name, setName] = useState<string>("Mr. Dr. Prof. Patrick");
     const [isCreatingAccount, setIsCreatingAccount] = useState<boolean>(false);
+    const [balance, setBalance] = useState<number>(0.0);
 
     // gets called when this route is navigated to
     useEffect(() => {
         const timer = window.setInterval(() => setTime(Date.now()), 1000);
 
-        setIsLoggedIn(Local.getName() !== null);
+        async function fetchBalance() {
+            if (Local.isLoggedIn()) {
+                const balance = await Api.getUserBalance(
+                    Local.getName() as string,
+                    Local.getPass() as string
+                );
+                setBalance(balance);
+            }
+        }
+
+        fetchBalance();
 
         // gets called just before navigating away from the route
         return () => {
@@ -37,7 +46,9 @@ const Profile: FunctionalComponent = () => {
     const renderProfile = () => {
         return (
             <div class={style.profile}>
-                <h2>Name: {Local.getName()}</h2>
+                <h2>Hello, {Local.getName()}</h2>
+
+                <h4>Balance: {balance} LC</h4>
 
                 <div>Current time: {new Date(time).toLocaleString()}</div>
 

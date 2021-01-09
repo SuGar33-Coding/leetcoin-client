@@ -20,6 +20,7 @@ const Login: FunctionalComponent = () => {
                     "\n - ur mom"
             );
         }
+        window.location.reload();
     };
 
     // React.ChangeEventHandler<HTMLInputElement>

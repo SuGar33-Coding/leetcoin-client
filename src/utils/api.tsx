@@ -67,5 +67,20 @@ export const Api = {
         };
         const res = await fetchWrapper.post("/user", params);
         return res.ok;
+    },
+
+    getUserBalance: async (name: string, password: string) => {
+        const params = {
+            name,
+            password
+        };
+        const res = await fetchWrapper.get("/user/balance", params);
+
+        if (res.ok) {
+            return parseFloat(await res.text());
+        } else {
+            // TODO: Throw error
+            return -1;
+        }
     }
 };
