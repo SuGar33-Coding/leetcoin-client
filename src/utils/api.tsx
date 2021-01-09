@@ -1,4 +1,4 @@
-const BASE_URL = "http://192.168.0.41:5000/api";
+const BASE_URL = "http://localhost:3000/api";
 
 const fetchWrapper = {
     get: async (url: string, params?: { [key: string]: string }) => {
@@ -29,23 +29,6 @@ const fetchWrapper = {
 
 export const Api = {
     /**
-     * Get a user from the backend.
-     * @param usr The user to fetch
-     */
-    getUser: async (usr: string) => {
-        const res = await fetchWrapper.get(`/api/user/${usr}`);
-        if (!res.ok) {
-            // return new Error();
-            // TODO: Make an actual error handler
-            return {
-                error: true,
-                msg: "something went wrong :("
-            };
-        }
-        return await res.json();
-    },
-
-    /**
      *
      * @param usr The username
      * @param pswd The password
@@ -53,7 +36,7 @@ export const Api = {
      */
     login: async (usr: string, pswd: string) => {
         const params = {
-            user: usr,
+            name: usr,
             password: pswd
         };
         const res = await fetchWrapper.get("/login", params);
