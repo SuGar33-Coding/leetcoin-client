@@ -30,22 +30,22 @@ const fetchWrapper = {
 export const Api = {
     /**
      *
-     * @param usr The username
-     * @param pswd The password
+     * @param name The username
+     * @param password The password
      * @returns True if the login credentials are valid.
      */
-    login: async (usr: string, pswd: string) => {
+    login: async (name: string, password: string) => {
         const params = {
-            name: usr,
-            password: pswd
+            name,
+            password
         };
         const res = await fetchWrapper.get("/login", params);
         return res.ok;
     },
 
-    createAccount: async (usr: string, password: string) => {
+    createAccount: async (name: string, password: string) => {
         const params = {
-            name: usr,
+            name,
             password
         };
         const res = await fetchWrapper.post("/user", params);
