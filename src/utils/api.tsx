@@ -3,7 +3,7 @@ const BASE_URL = "http://localhost:3000/api";
 const customFetch = async (
     method: string,
     url: string,
-    params?: { [key: string]: string }
+    params?: { [key: string]: string | number }
 ) => {
     let urlString = BASE_URL + url;
     if (params) {
@@ -18,10 +18,12 @@ const customFetch = async (
 };
 
 const fetchWrapper = {
-    get: async (url: string, params?: { [key: string]: string }) =>
+    get: async (url: string, params?: { [key: string]: string | number }) =>
         await customFetch("GET", url, params),
-    post: async (url: string, params?: { [key: string]: string }) =>
-        await customFetch("POST", url, params)
+    post: async (url: string, params?: { [key: string]: string | number }) =>
+        await customFetch("POST", url, params),
+    put: async (url: string, params?: { [key: string]: string | number }) =>
+        await customFetch("PUT", url, params)
 };
 
 export const Api = {
@@ -69,7 +71,9 @@ export const Api = {
             name,
             amt
         };
-        alert(`Added ${amt} to ${name}'s wallet`);
+        const res = await fetchWrapper.post("/user/transaction", params);
+
+        return res.ok;
     },
 
     getUser: async (name: string) => {

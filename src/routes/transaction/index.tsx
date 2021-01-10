@@ -44,7 +44,8 @@ const Transaction: FunctionalComponent<Props> = (props: Props) => {
 
     const confirmTransactionHandler = async () => {
         const name = Local.isLoggedIn() ? Local.getName() : inputName;
-        await Api.makeTransaction(name as string, amt);
+        const isTransactionOk = await Api.makeTransaction(name as string, amt);
+        alert(`Transaction is ${isTransactionOk ? "good" : "not good"}!`);
     };
 
     const LoggedInComp: FunctionalComponent = () => {
