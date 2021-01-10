@@ -2,7 +2,7 @@ import { FunctionalComponent, h } from "preact";
 import { useState } from "preact/hooks";
 import { Api } from "../../utils/api";
 import { Local } from "../../utils/local";
-import * as style from "./style.css";
+import style from "./style.css";
 
 interface Props {
     amt: number;
