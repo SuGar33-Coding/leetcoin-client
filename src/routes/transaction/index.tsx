@@ -3,13 +3,11 @@ import { useState } from "preact/hooks";
 import { Api } from "../../utils/api";
 import { Local } from "../../utils/local";
 import style from "./style.css";
+import qs from "querystring";
 
-interface Props {
-    amt: number;
-}
-
-const Transaction: FunctionalComponent<Props> = (props: Props) => {
-    const { amt } = props;
+const Transaction: FunctionalComponent = () => {
+    const params = qs.parse(location.search);
+    const amt = parseFloat(params["?amt"] as string);
 
     const [canConfirm, setCanConfirm] = useState<boolean>(Local.isLoggedIn());
     const [inputName, setInputName] = useState<string>("");
