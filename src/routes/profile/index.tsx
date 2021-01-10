@@ -7,8 +7,6 @@ import { Local } from "../../utils/local";
 import style from "./style.css";
 
 const Profile: FunctionalComponent = () => {
-    const [time, setTime] = useState<number>(Date.now());
-    const [count, setCount] = useState<number>(0);
     const [isCreatingAccount, setIsCreatingAccount] = useState<boolean>(false);
     const [balance, setBalance] = useState<number>(0.0);
 
