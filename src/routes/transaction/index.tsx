@@ -14,19 +14,31 @@ const Transaction: FunctionalComponent<Props> = (props: Props) => {
     const [canConfirm, setCanConfirm] = useState<boolean>(Local.isLoggedIn());
     const [inputName, setInputName] = useState<string>("");
 
+    /**
+     * So in order to get the while-typing validation for the name,
+     * I had to make the async api call using onInput but I can't
+     * use any state hooks cause that blurs the input from a view
+     * refresh.
+     *
+     * To get around this, I only call state hooks when the name
+     * is valid or changing from valid to invalid. A LITTLE clunky
+     * but it works.
+     * @param event onInput() event
+     */
     const inputChangeHandler = async (event: any) => {
         const name = event.target.value;
-        console.log(event);
+        // Check if the username is valid every time input is changed
         try {
             const user = await Api.getUser(name);
+            // If that didn't throw an error, call some hooks
             setInputName(user.name);
             setCanConfirm(true);
         } catch (exception) {
             if (canConfirm) {
+                // Only call hooks if it thought it was valid already
                 setInputName(name);
                 setCanConfirm(false);
             }
-            console.error(exception);
         }
     };
 
