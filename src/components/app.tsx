@@ -5,6 +5,7 @@ import Transactions from "../routes/transactions";
 import Profile from "../routes/profile";
 import NotFoundPage from "../routes/notfound";
 import Header from "./header";
+import Transaction from "../routes/transaction";
 
 const App: FunctionalComponent = () => {
     let currentUrl: string;
@@ -18,6 +19,7 @@ const App: FunctionalComponent = () => {
             <Router onChange={handleRoute}>
                 <Route path="/" component={Transactions} />
                 <Route path="/profile/" component={Profile} />
+                <Route path="/transaction/:amt" component={Transaction} />
                 <NotFoundPage default />
             </Router>
         </div>

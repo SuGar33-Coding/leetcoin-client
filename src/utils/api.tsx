@@ -1,30 +1,27 @@
 const BASE_URL = "http://localhost:3000/api";
 
-const fetchWrapper = {
-    get: async (url: string, params?: { [key: string]: string }) => {
-        let urlString = BASE_URL + url;
-        if (params) {
-            // add url params if passed any
-            urlString += "?";
-            for (const key in params) {
-                urlString += `${key}=${params[key]}&`;
-            }
-            urlString = urlString.slice(0, -1); // chop off last "&"
+const customFetch = async (
+    method: string,
+    url: string,
+    params?: { [key: string]: string }
+) => {
+    let urlString = BASE_URL + url;
+    if (params) {
+        // add url params if passed any
+        urlString += "?";
+        for (const key in params) {
+            urlString += `${key}=${params[key]}&`;
         }
-        return await fetch(urlString, { method: "GET" });
-    },
-    post: async (url: string, params?: { [key: string]: string }) => {
-        let urlString = BASE_URL + url;
-        if (params) {
-            // add url params if passed any
-            urlString += "?";
-            for (const key in params) {
-                urlString += `${key}=${params[key]}&`;
-            }
-            urlString = urlString.slice(0, -1); // chop off last "&"
-        }
-        return await fetch(urlString, { method: "POST" });
+        urlString = urlString.slice(0, -1); // chop off last "&"
     }
+    return await fetch(urlString, { method });
+};
+
+const fetchWrapper = {
+    get: async (url: string, params?: { [key: string]: string }) =>
+        await customFetch("GET", url, params),
+    post: async (url: string, params?: { [key: string]: string }) =>
+        await customFetch("POST", url, params)
 };
 
 export const Api = {
@@ -65,5 +62,27 @@ export const Api = {
             // TODO: Throw error
             return -1;
         }
+    },
+
+    makeTransaction: async (name: string, amt: number) => {
+        const params = {
+            name,
+            amt
+        };
+        alert(`Added ${amt} to ${name}'s wallet`);
+    },
+
+    getUser: async (name: string) => {
+        const params = {
+            name
+        };
+
+        const res = await fetchWrapper.get("/user", params);
+
+        if (!res.ok) {
+            throw new Error("Not found");
+        }
+
+        return await res.json();
     }
 };

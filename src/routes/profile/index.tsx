@@ -4,7 +4,7 @@ import CreateAccount from "../../components/create-account";
 import Login from "../../components/login";
 import { Api } from "../../utils/api";
 import { Local } from "../../utils/local";
-import * as style from "./style.css";
+import style from "./style.css";
 
 const Profile: FunctionalComponent = () => {
     const [time, setTime] = useState<number>(Date.now());
@@ -34,11 +34,6 @@ const Profile: FunctionalComponent = () => {
         };
     }, []);
 
-    // update the current time
-    const increment = () => {
-        setCount(count + 1);
-    };
-
     const handleLogout = () => {
         Local.clear();
     };
@@ -46,16 +41,9 @@ const Profile: FunctionalComponent = () => {
     const renderProfile = () => {
         return (
             <div class={style.profile}>
-                <h2>Hello, {Local.getName()}</h2>
+                <h4>Hello, {Local.getName()}</h4>
 
-                <h4>Balance: {balance} LC</h4>
-
-                <div>Current time: {new Date(time).toLocaleString()}</div>
-
-                <p>
-                    <button onClick={increment}>Click Me</button> Clicked{" "}
-                    {count} times.
-                </p>
+                <h2>Balance: {balance} LC</h2>
 
                 <button onClick={handleLogout}>Logout</button>
             </div>
