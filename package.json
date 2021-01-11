@@ -6,7 +6,7 @@
   "scripts": {
     "build": "preact build",
     "serve": "sirv build --port 8080 --cors --single",
-    "dev": "preact watch --sw",
+    "dev": "preact watch",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}' && prettier 'src/**/*.{js,jsx,ts,tsx}' --check",
     "format": "eslint 'src/**/*.{js,jsx,ts,tsx}' --fix && prettier 'src/**/*.{js,jsx,ts,tsx}' --write",
     "test": "jest ./tests"
