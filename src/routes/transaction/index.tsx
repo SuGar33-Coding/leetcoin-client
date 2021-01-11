@@ -4,6 +4,7 @@ import { Api } from "../../utils/api";
 import { Local } from "../../utils/local";
 import style from "./style.css";
 import qs from "querystring";
+import { route } from "preact-router";
 
 const Transaction: FunctionalComponent = () => {
     const params = qs.parse(location.search);
@@ -43,7 +44,12 @@ const Transaction: FunctionalComponent = () => {
     const confirmTransactionHandler = async () => {
         const name = Local.isLoggedIn() ? Local.getName() : inputName;
         const isTransactionOk = await Api.makeTransaction(name as string, amt);
-        alert(`Transaction is ${isTransactionOk ? "good" : "not good"}!`);
+        if (isTransactionOk) {
+            alert(`Transaction of ${amt} was good! :3`);
+        } else {
+            alert(`Oh nOwO the transaction failed! 😰`);
+        }
+        route("/profile");
     };
 
     const LoggedInComp: FunctionalComponent = () => {

@@ -15,6 +15,7 @@ const CreateAccount: FunctionalComponent = () => {
         } else {
             alert(`${userName}, your account creation has failed.`);
         }
+        window.location.reload();
     };
 
     const handleUsernameFieldChange = (event: any): void => {

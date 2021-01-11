@@ -29,6 +29,7 @@ const Profile: FunctionalComponent = () => {
 
     const handleLogout = () => {
         Local.clear();
+        window.location.reload();
     };
 
     const renderProfile = () => {
