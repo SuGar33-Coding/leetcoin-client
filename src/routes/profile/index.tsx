@@ -12,8 +12,6 @@ const Profile: FunctionalComponent = () => {
 
     // gets called when this route is navigated to
     useEffect(() => {
-        const timer = window.setInterval(() => setTime(Date.now()), 1000);
-
         async function fetchBalance() {
             if (Local.isLoggedIn()) {
                 const balance = await Api.getUserBalance(
@@ -27,9 +25,6 @@ const Profile: FunctionalComponent = () => {
         fetchBalance();
 
         // gets called just before navigating away from the route
-        return () => {
-            clearInterval(timer);
-        };
     }, []);
 
     const handleLogout = () => {
