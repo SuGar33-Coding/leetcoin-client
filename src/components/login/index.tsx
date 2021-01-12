@@ -36,12 +36,22 @@ const Login: FunctionalComponent = () => {
         <form onSubmit={async event => await handleFormSubmit(event)}>
             <label>
                 Username: <br />
-                <input type="text" onChange={handleUsernameFieldChange} />
+                <input
+                    type="text"
+                    // eslint-disable-next-line react/no-unknown-property
+                    autocomplete="username"
+                    onChange={handleUsernameFieldChange}
+                />
             </label>
             <br />
             <label>
                 Password: <br />
-                <input type="text" onChange={handlePasswordFieldChange} />
+                <input
+                    type="password"
+                    // eslint-disable-next-line react/no-unknown-property
+                    autocomplete="current-password"
+                    onChange={handlePasswordFieldChange}
+                />
             </label>
             <br />
             <input type="submit" value="Login" />

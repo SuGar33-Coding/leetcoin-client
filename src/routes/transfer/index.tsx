@@ -1,17 +1,21 @@
 import { FunctionalComponent, h } from "preact";
+import { useState } from "preact/hooks";
+import { OptionProps } from "react-select/src/types";
 import UserSelect from "../../components/user-select";
 import style from "./style.css";
 
 const Transfer: FunctionalComponent = () => {
-    const opts = [
-        { value: "ocean", label: "Ocean", color: "#00B8D9", isFixed: true },
-        { value: "blue", label: "Blue", color: "#0052CC", isDisabled: true }
-    ];
+    const [inputValue, setInputValue] = useState<string>("");
+
+    const handleInputChange = (optionProps: OptionProps) => {
+        setInputValue(optionProps.value);
+    };
 
     return (
         <div class={style.transfer}>
             <h1>Transfer LeetCoin! 😳</h1>
-            <UserSelect />
+            <p>Current Value: {inputValue}</p>
+            <UserSelect onSelectOption={handleInputChange} />
         </div>
     );
 };

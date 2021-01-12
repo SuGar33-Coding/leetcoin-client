@@ -1,12 +1,18 @@
 import { FunctionalComponent, h } from "preact";
 import { useState } from "preact/hooks";
 import AsyncSelect from "react-select/async";
+import { Option } from "react-select/src/filters";
 import { OptionProps } from "react-select/src/types";
 import { Api } from "../../utils/api";
 
-const UserSelect: FunctionalComponent = () => {
-    const [inputValue, setInputValue] = useState<any>("");
+interface Props {
+    /**
+     * Send the option props of the option back through this callback prop
+     */
+    onSelectOption: (optionProps: OptionProps) => void;
+}
 
+const UserSelect: FunctionalComponent<Props> = (props: Props) => {
     const loadOptions = (inputValue: string, callback: Function) => {
         Api.queryUsers().then(res => {
             const options = [];
@@ -22,7 +28,7 @@ const UserSelect: FunctionalComponent = () => {
     };
 
     const handleInputChange = (newOptionProps: OptionProps) => {
-        setInputValue(newOptionProps.value);
+        props.onSelectOption(newOptionProps);
     };
 
     return (
