@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000/api";
+const BASE_URL = `http://${location.hostname}:3000/api`;
 
 const customFetch = async (
     method: string,
@@ -86,6 +86,12 @@ export const Api = {
         if (!res.ok) {
             throw new Error("Not found");
         }
+
+        return await res.json();
+    },
+
+    queryUsers: async () => {
+        const res = await fetchWrapper.get("/users");
 
         return await res.json();
     }
