@@ -12,14 +12,14 @@ const Transaction: FunctionalComponent = () => {
     const params = qs.parse(location.search);
     const amt = parseFloat(params["?amt"] as string);
 
-    const [canConfirm, setCanConfirm] = useState<boolean>(Local.isLoggedIn());
+    const [isValidInput, setIsValidInput] = useState<boolean>(
+        Local.isLoggedIn()
+    );
     const [inputName, setInputName] = useState<string>("");
 
-    const inputChangeHandler = (optionProps: OptionProps) => {
-        console.log(optionProps);
-
-        setInputName(optionProps.label);
-        setCanConfirm(true);
+    const inputChangeHandler = (inputValue: string, isUser: boolean) => {
+        setInputName(inputValue);
+        setIsValidInput(isUser);
     };
 
     const confirmTransactionHandler = async () => {
@@ -50,7 +50,7 @@ const Transaction: FunctionalComponent = () => {
             </p>
             <button
                 onClick={async () => await confirmTransactionHandler()}
-                disabled={!canConfirm}
+                disabled={!isValidInput}
             >
                 Confirm Transaction
             </button>
