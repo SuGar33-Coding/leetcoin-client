@@ -1,6 +1,7 @@
-import { FunctionalComponent, h } from "preact";
+import { FunctionalComponent, h, render } from "preact";
 import { useState } from "preact/hooks";
 import UserSelect from "../../components/user-select";
+import { Local } from "../../utils/local";
 import style from "./style.css";
 
 const Transfer: FunctionalComponent = () => {
@@ -22,29 +23,40 @@ const Transfer: FunctionalComponent = () => {
         alert(`Test: Sent ${amountValue} LC to ${userValue}! 😊`);
     };
 
+    const RenderNotLoggedIn: FunctionalComponent = () => {
+        return (
+            <div>
+                <h4>Please Log In before you transfer LeetCoin</h4>
+            </div>
+        );
+    };
+
     return (
         <div class={style.transfer}>
             <h1>Transfer LeetCoin! 😳</h1>
-            <label>User:</label>
-            <br />
-            <UserSelect onSelectOption={handleUserInputChange} />
-            <br />
-            <form onSubmit={handleTransferSubmit}>
-                <label>Amount:</label>
+            {Local.isLoggedIn() ? "" : <RenderNotLoggedIn />}
+            <div hidden={!Local.isLoggedIn()}>
+                <label>User:</label>
                 <br />
-                <input
-                    type="number"
-                    step="any"
-                    onInput={handleAmountInputChange}
-                />
+                <UserSelect onSelectOption={handleUserInputChange} />
                 <br />
-                <br />
-                <input
-                    type="submit"
-                    value="Confirm Transfer"
-                    disabled={!isValidUser || !(amountValue > 0)}
-                />
-            </form>
+                <form onSubmit={handleTransferSubmit}>
+                    <label>Amount:</label>
+                    <br />
+                    <input
+                        type="number"
+                        step="any"
+                        onInput={handleAmountInputChange}
+                    />
+                    <br />
+                    <br />
+                    <input
+                        type="submit"
+                        value="Confirm Transfer"
+                        disabled={!isValidUser || !(amountValue > 0)}
+                    />
+                </form>
+            </div>
         </div>
     );
 };
