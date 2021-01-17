@@ -1,4 +1,5 @@
 import { FunctionalComponent, h } from "preact";
+import { route } from "preact-router";
 import { useEffect, useState } from "preact/hooks";
 import CreateAccount from "../../components/create-account";
 import Login from "../../components/login";
@@ -27,6 +28,10 @@ const Profile: FunctionalComponent = () => {
         // gets called just before navigating away from the route
     }, []);
 
+    const handleMakeTransfer = () => {
+        route("/transfer");
+    };
+
     const handleLogout = () => {
         Local.clear();
         window.location.reload();
@@ -39,6 +44,9 @@ const Profile: FunctionalComponent = () => {
 
                 <h2>Balance: {balance} LC</h2>
 
+                <button onClick={handleMakeTransfer}>Make Transfer</button>
+                <br />
+                <br />
                 <button onClick={handleLogout}>Logout</button>
             </div>
         );
