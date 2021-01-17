@@ -6,7 +6,6 @@ import style from "./style.css";
 import qs from "querystring";
 import { route } from "preact-router";
 import UserSelect from "../../components/user-select";
-import { OptionProps } from "react-select/src/types";
 
 const Transaction: FunctionalComponent = () => {
     const params = qs.parse(location.search);

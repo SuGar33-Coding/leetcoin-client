@@ -1,7 +1,5 @@
 import { FunctionalComponent, h } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import AsyncSelect from "react-select/async";
-import { OptionProps } from "react-select/src/types";
 import { Api } from "../../utils/api";
 import { Local } from "../../utils/local";
 
@@ -39,8 +37,9 @@ const UserSelect: FunctionalComponent<Props> = (props: Props) => {
         };
 
         fetchUserOptions();
-    }, []);
+    }, [props.filterLoggedInUser]);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleInputChange = (event: any) => {
         const input = event.target.value;
         props.onSelectOption(input, userOptions.includes(input));

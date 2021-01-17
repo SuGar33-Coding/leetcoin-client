@@ -7,6 +7,7 @@ const CreateAccount: FunctionalComponent = () => {
     const [userName, setUserName] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleFormSubmit = async (event: any) => {
         event.preventDefault();
         if (await Api.createAccount(userName, password)) {
@@ -18,10 +19,12 @@ const CreateAccount: FunctionalComponent = () => {
         window.location.reload();
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleUsernameFieldChange = (event: any): void => {
         setUserName(event.target.value);
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handlePasswordFieldChange = (event: any): void => {
         setPassword(event.target.value);
     };

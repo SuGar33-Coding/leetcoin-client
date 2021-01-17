@@ -1,4 +1,4 @@
-import { FunctionalComponent, h, render } from "preact";
+import { FunctionalComponent, h } from "preact";
 import { useState } from "preact/hooks";
 import UserSelect from "../../components/user-select";
 import { Api } from "../../utils/api";
@@ -15,11 +15,13 @@ const Transfer: FunctionalComponent = () => {
         setIsValidUser(isUser);
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleAmountInputChange = (event: any) => {
         const amt = event.target.value;
         setAmountValue(amt);
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleTransferSubmit = async (event: any) => {
         event.preventDefault();
         const isTransferGood = await Api.makeTransfer(
