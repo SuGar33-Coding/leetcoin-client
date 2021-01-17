@@ -14,7 +14,11 @@ const customFetch = async (
         }
         urlString = urlString.slice(0, -1); // chop off last "&"
     }
-    return await fetch(urlString, { method });
+    const res = await fetch(urlString, { method });
+    if (!res.ok) {
+        console.error(JSON.stringify(await res.json()));
+    }
+    return res;
 };
 
 const fetchWrapper = {
@@ -56,7 +60,7 @@ export const Api = {
             name,
             password
         };
-        const res = await fetchWrapper.get("/user/balance", params);
+        const res = await fetchWrapper.get("/wallet/balance", params);
 
         if (res.ok) {
             return parseFloat(await res.text());
@@ -71,7 +75,24 @@ export const Api = {
             name,
             amt
         };
-        const res = await fetchWrapper.post("/user/transaction", params);
+        const res = await fetchWrapper.post("/wallet/transaction", params);
+
+        return res.ok;
+    },
+
+    makeTransfer: async (
+        sender: string,
+        password: string,
+        receiver: string,
+        amt: number
+    ) => {
+        const params = {
+            sender,
+            password,
+            receiver,
+            amt
+        };
+        const res = await fetchWrapper.post("/wallet/transfer", params);
 
         return res.ok;
     },

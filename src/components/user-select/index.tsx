@@ -3,15 +3,25 @@ import { useEffect, useState } from "preact/hooks";
 import AsyncSelect from "react-select/async";
 import { OptionProps } from "react-select/src/types";
 import { Api } from "../../utils/api";
+import { Local } from "../../utils/local";
 
 interface Props {
     /**
      * Send the input selected and whether it's in the list of fetched users
      */
     onSelectOption: (input: string, isUser: boolean) => void;
+    /**
+     * Whether to filter out the logged-in user's name from the list
+     */
+    filterLoggedInUser?: boolean;
 }
 
 const UserSelect: FunctionalComponent<Props> = (props: Props) => {
+    /* Set default prop values */
+    if (!props.filterLoggedInUser) {
+        props.filterLoggedInUser = false;
+    }
+
     const [userOptions, setUserOptions] = useState<string[]>([]);
 
     useEffect(() => {
@@ -19,7 +29,11 @@ const UserSelect: FunctionalComponent<Props> = (props: Props) => {
             const users = await Api.queryUsers();
             const opts = [];
             for (const key in users) {
-                opts.push(users[key].name);
+                if (
+                    !props.filterLoggedInUser ||
+                    users[key].name != Local.getName()
+                )
+                    opts.push(users[key].name);
             }
             setUserOptions(opts);
         };

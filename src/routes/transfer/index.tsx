@@ -1,6 +1,7 @@
 import { FunctionalComponent, h, render } from "preact";
 import { useState } from "preact/hooks";
 import UserSelect from "../../components/user-select";
+import { Api } from "../../utils/api";
 import { Local } from "../../utils/local";
 import style from "./style.css";
 
@@ -19,8 +20,20 @@ const Transfer: FunctionalComponent = () => {
         setAmountValue(amt);
     };
 
-    const handleTransferSubmit = (event: any) => {
-        alert(`Test: Sent ${amountValue} LC to ${userValue}! 😊`);
+    const handleTransferSubmit = async (event: any) => {
+        event.preventDefault();
+        const isTransferGood = await Api.makeTransfer(
+            Local.getName() as string,
+            Local.getPass() as string,
+            userValue,
+            amountValue
+        );
+        if (isTransferGood) {
+            alert(`Sent ${amountValue} LC to ${userValue}! 😊`);
+        } else {
+            alert("Transaction failed for some reason!");
+        }
+        window.location.reload();
     };
 
     const RenderNotLoggedIn: FunctionalComponent = () => {
@@ -33,14 +46,19 @@ const Transfer: FunctionalComponent = () => {
 
     return (
         <div class={style.transfer}>
-            <h1>Transfer LeetCoin! 😳</h1>
+            <h1>Transfer LeetCoin! 💸</h1>
             {Local.isLoggedIn() ? "" : <RenderNotLoggedIn />}
             <div hidden={!Local.isLoggedIn()}>
-                <label>User:</label>
+                <label>Receiving User:</label>
                 <br />
-                <UserSelect onSelectOption={handleUserInputChange} />
+                <UserSelect
+                    onSelectOption={handleUserInputChange}
+                    filterLoggedInUser={true}
+                />
                 <br />
-                <form onSubmit={handleTransferSubmit}>
+                <form
+                    onSubmit={async event => await handleTransferSubmit(event)}
+                >
                     <label>Amount:</label>
                     <br />
                     <input
