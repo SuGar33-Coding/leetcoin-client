@@ -30,7 +30,11 @@ const Transaction: FunctionalComponent = () => {
         } else {
             alert(`Oh nOwO the transaction failed! 😰`);
         }
-        route("/profile");
+        if (Local.isLoggedIn()) {
+            route("/profile");
+        } else {
+            route("/");
+        }
     };
 
     return (
