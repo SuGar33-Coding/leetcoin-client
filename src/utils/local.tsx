@@ -1,6 +1,7 @@
 const storeKeys = {
     NAME: "name",
-    PASSWORD: "pass"
+    PASSWORD: "pass",
+    BALANCE: "balance"
 };
 
 export const Local = {
@@ -18,6 +19,13 @@ export const Local = {
     },
     setPass: (pass: string) => {
         localStorage.setItem(storeKeys.PASSWORD, pass);
+    },
+    getBalance: () => {
+        const balance = localStorage.getItem(storeKeys.BALANCE);
+        return balance ? parseFloat(balance) : 0;
+    },
+    setBalance: (balance: number) => {
+        localStorage.setItem(storeKeys.BALANCE, balance.toString());
     },
     /**
      * Clears all data in local storage.

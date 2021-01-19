@@ -9,7 +9,7 @@ import style from "./style.css";
 
 const Profile: FunctionalComponent = () => {
     const [isCreatingAccount, setIsCreatingAccount] = useState<boolean>(false);
-    const [balance, setBalance] = useState<number>(0.0);
+    const [balance, setBalance] = useState<number>(Local.getBalance());
 
     // gets called when this route is navigated to
     useEffect(() => {
@@ -20,6 +20,7 @@ const Profile: FunctionalComponent = () => {
                     Local.getPass() as string
                 );
                 setBalance(balance);
+                Local.setBalance(balance);
             }
         }
 
