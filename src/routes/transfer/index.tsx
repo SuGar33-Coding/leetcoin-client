@@ -1,5 +1,6 @@
 import { FunctionalComponent, h } from "preact";
 import { useState } from "preact/hooks";
+import NotLoggedIn from "../../components/not-logged-in";
 import UserSelect from "../../components/user-select";
 import { Api } from "../../utils/api";
 import { Local } from "../../utils/local";
@@ -38,18 +39,10 @@ const Transfer: FunctionalComponent = () => {
         window.location.reload();
     };
 
-    const RenderNotLoggedIn: FunctionalComponent = () => {
-        return (
-            <div>
-                <h4>Please Log In before you transfer LeetCoin</h4>
-            </div>
-        );
-    };
-
     return (
         <div class={style.transfer}>
             <h1>Transfer LeetCoin! 💸</h1>
-            {Local.isLoggedIn() ? "" : <RenderNotLoggedIn />}
+            {Local.isLoggedIn() ? "" : <NotLoggedIn page="Transfer" />}
             <div hidden={!Local.isLoggedIn()}>
                 <label>Receiving User:</label>
                 <br />

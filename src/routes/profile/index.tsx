@@ -32,6 +32,10 @@ const Profile: FunctionalComponent = () => {
         route("/transfer");
     };
 
+    const handlePayment = () => {
+        route("/payment");
+    };
+
     const handleLogout = () => {
         Local.clear();
         window.location.reload();
@@ -45,6 +49,10 @@ const Profile: FunctionalComponent = () => {
                 <h2>Balance: {balance} LC</h2>
 
                 <button onClick={handleMakeTransfer}>Make Transfer</button>
+                <br />
+                <br />
+                <button onClick={handlePayment}>Make Payment</button>
+                <br />
                 <br />
                 <br />
                 <button onClick={handleLogout}>Logout</button>

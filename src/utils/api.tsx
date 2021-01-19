@@ -97,6 +97,26 @@ export const Api = {
         return res.ok;
     },
 
+    makePayment: async (
+        name: string,
+        password: string,
+        amt: number,
+        note?: string
+    ) => {
+        // TODO: Figure out the typing here
+        const params: any = {
+            name,
+            password,
+            amt
+        };
+        if (note) {
+            params.note = note;
+        }
+        const res = await fetchWrapper.post("/wallet/payment", params);
+
+        return res.ok;
+    },
+
     getUser: async (name: string) => {
         const params = {
             name
