@@ -10,9 +10,11 @@ import Transfer from "../routes/transfer";
 import Payment from "../routes/payment";
 
 const App: FunctionalComponent = () => {
-    let currentUrl: string;
+    // Disable scrolling on main body 👍
+    document.body.style.overflow = "hidden";
+
     const handleRoute = (e: RouterOnChangeArgs) => {
-        currentUrl = e.url;
+        console.log(e);
     };
 
     return (

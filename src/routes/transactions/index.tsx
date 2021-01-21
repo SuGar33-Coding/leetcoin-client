@@ -3,6 +3,7 @@ import style from "./style.css";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect, useState } from "preact/hooks";
 import { Api } from "../../utils/api";
+import moment from "moment";
 
 interface Transaction {
     type: "TRANSACTION" | "TRANSFER" | "PAYMENT";
@@ -12,10 +13,11 @@ interface Transaction {
     note?: string;
     primaryWallet: string;
     secondaryWallet?: string;
+    createdAt: string;
 }
 
 const Transactions: FunctionalComponent = () => {
-    const itemsLengthIncAmt = 10;
+    const itemsLengthIncAmt = 20;
     const [itemsLength, setItemsLength] = useState<number>(itemsLengthIncAmt);
     const [items, setItems] = useState<Transaction[]>([]);
     const [hasMore, setHasMore] = useState<boolean>(true);
@@ -48,7 +50,15 @@ const Transactions: FunctionalComponent = () => {
                     scrollableTarget="transactionContainer"
                 >
                     {items.map((txn, index) => (
-                        <div style={{ marginBottom: 10 }} key={index}>
+                        <div style={{ marginBottom: 15 }} key={index}>
+                            <span>
+                                [
+                                {moment(txn.createdAt).format(
+                                    "MM/DD/YY HH:mm:ss"
+                                )}
+                                ]
+                            </span>
+                            <br />
                             <span>
                                 <span class={style.type}>{txn.type}</span>{" "}
                                 <span class={style.primaryWallet}>
