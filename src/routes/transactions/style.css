@@ -3,3 +3,33 @@
     min-height: 100%;
     width: 100%;
 }
+
+.transactionContainers {
+    height: 100;
+    overflow: auto;
+    background-color: #272822;
+    /* font-size: large; */
+    font-family: Consolas, "Courier New", monospace;
+    color: #f8f8f2;
+    border-radius: 6pt;
+    padding: 15px;
+    width: 90%;
+    height: 60vh;
+    margin: auto;
+}
+
+.type {
+    color: #66d9ef;
+}
+
+.primaryWallet {
+    color: #fd971f;
+}
+
+.infoLabel {
+    color: #f92672;
+}
+
+.info {
+    color: #e6db74;
+}

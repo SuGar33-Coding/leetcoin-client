@@ -135,5 +135,15 @@ export const Api = {
         const res = await fetchWrapper.get("/users");
 
         return await res.json();
+    },
+
+    queryTransactions: async (limit: number) => {
+        const params = {
+            limit
+        };
+
+        const res = await fetchWrapper.get("/transactions", params);
+
+        return await res.json();
     }
 };

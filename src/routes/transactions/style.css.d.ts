@@ -2,6 +2,11 @@
 declare namespace StyleCssNamespace {
     export interface IStyleCss {
         home: string;
+        info: string;
+        infoLabel: string;
+        primaryWallet: string;
+        transactionContainers: string;
+        type: string;
     }
 }
 
