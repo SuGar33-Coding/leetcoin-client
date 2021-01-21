@@ -34,6 +34,11 @@ const Transactions: FunctionalComponent = () => {
         });
     };
 
+    const refresh = () => {
+        setItemsLength(itemsLengthIncAmt);
+        fetchMore();
+    };
+
     useEffect(() => {
         fetchMore();
     }, []);
@@ -48,6 +53,19 @@ const Transactions: FunctionalComponent = () => {
                     hasMore={hasMore}
                     loader={<h4>Loading...</h4>}
                     scrollableTarget="transactionContainer"
+                    refreshFunction={refresh}
+                    pullDownToRefresh
+                    pullDownToRefreshThreshold={125}
+                    pullDownToRefreshContent={
+                        <h3 style={{ textAlign: "center" }}>
+                            👇 Pull down to refresh
+                        </h3>
+                    }
+                    releaseToRefreshContent={
+                        <h3 style={{ textAlign: "center" }}>
+                            👆 Release to refresh
+                        </h3>
+                    }
                 >
                     {items.map((txn, index) => (
                         <div style={{ marginBottom: 15 }} key={index}>
@@ -75,12 +93,21 @@ const Transactions: FunctionalComponent = () => {
                                         ).toPrecision(10)}
                                     </span>
                                 </span>
-                                <br />
                                 <span hidden={!txn.secondaryWallet}>
-                                    <span class={style.infoLabel}>To</span>:{" "}
+                                    <br />
+                                    <span class={style.infoLabel}>
+                                        To
+                                    </span>:{" "}
                                     <span class={style.info}>
                                         {txn.secondaryWallet?.slice(-10)}
                                     </span>
+                                </span>
+                                <span hidden={!txn.note}>
+                                    <br />
+                                    <span class={style.infoLabel}>
+                                        Note:
+                                    </span>:{" "}
+                                    <span class={style.info}>{txn.note}</span>
                                 </span>
                             </div>
                         </div>
