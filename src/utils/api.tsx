@@ -1,4 +1,5 @@
-const BASE_URL = `http://${location.hostname}:3000/api`;
+// TODO: figure out how to env this
+const BASE_URL = `http://leet.dabe.tech/api`;
 
 const customFetch = async (
     method: string,
