@@ -11,7 +11,7 @@ import Payment from "../routes/payment";
 
 const App: FunctionalComponent = () => {
     // Disable scrolling on main body 👍
-    document.body.style.overflow = "hidden";
+    // document!.body.style.overflow = "hidden";
 
     const handleRoute = (e: RouterOnChangeArgs) => {
         console.log(e);
