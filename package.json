@@ -24,6 +24,7 @@
     "build/*"
   ],
   "dependencies": {
+    "@material-ui/core": "^4.11.2",
     "axios": "^0.19.2",
     "moment": "^2.29.1",
     "preact": "^10.3.1",
