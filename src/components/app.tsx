@@ -11,9 +11,6 @@ import Payment from "../routes/payment";
 import Earnings from "../routes/earnings";
 
 const App: FunctionalComponent = () => {
-    // Disable scrolling on main body 👍
-    // document!.body.style.overflow = "hidden";
-
     return (
         <div id="app">
             <Header />

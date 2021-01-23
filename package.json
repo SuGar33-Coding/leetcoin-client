@@ -26,6 +26,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "axios": "^0.19.2",
+    "body-scroll-lock": "^3.1.5",
     "moment": "^2.29.1",
     "preact": "^10.3.1",
     "preact-cli-plugin-env-vars": "^1.2.1",
@@ -38,6 +39,7 @@
   },
   "devDependencies": {
     "@teamsupercell/typings-for-css-modules-loader": "^2.2.0",
+    "@types/body-scroll-lock": "^2.6.1",
     "@types/enzyme": "^3.10.5",
     "@types/jest": "^26.0.8",
     "@types/webpack-env": "^1.15.1",

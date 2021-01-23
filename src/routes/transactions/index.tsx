@@ -1,6 +1,7 @@
-import { FunctionalComponent, h } from "preact";
+import { createRef, FunctionalComponent, h } from "preact";
 import style from "./style.css";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { clearAllBodyScrollLocks, disableBodyScroll } from "body-scroll-lock";
 import { useEffect, useState } from "preact/hooks";
 import { Api } from "../../utils/api";
 import moment from "moment";
@@ -18,6 +19,7 @@ interface Transaction {
 
 const Transactions: FunctionalComponent = () => {
     const itemsLengthIncAmt = 20;
+    const targetElement = createRef();
     const [itemsLength, setItemsLength] = useState<number>(itemsLengthIncAmt);
     const [items, setItems] = useState<Transaction[]>([]);
     const [hasMore, setHasMore] = useState<boolean>(true);
@@ -41,31 +43,38 @@ const Transactions: FunctionalComponent = () => {
 
     useEffect(() => {
         fetchMore();
-    }, []);
+        disableBodyScroll(targetElement.current);
+
+        return clearAllBodyScrollLocks;
+    }, [targetElement]);
 
     return (
         <div class={style.home}>
             <h1>Transactions</h1>
-            <div id="transactionContainer" class={style.transactionContainers}>
+            <div
+                ref={targetElement}
+                id="transactionContainer"
+                class={style.transactionContainers}
+            >
                 <InfiniteScroll
                     dataLength={items.length}
                     next={fetchMore}
                     hasMore={hasMore}
                     loader={<h4>Loading...</h4>}
                     scrollableTarget="transactionContainer"
-                    refreshFunction={refresh}
-                    pullDownToRefresh
-                    pullDownToRefreshThreshold={125}
-                    pullDownToRefreshContent={
-                        <h3 style={{ textAlign: "center" }}>
-                            👇 Pull down to refresh
-                        </h3>
-                    }
-                    releaseToRefreshContent={
-                        <h3 style={{ textAlign: "center" }}>
-                            👆 Release to refresh
-                        </h3>
-                    }
+                    // refreshFunction={refresh}
+                    // pullDownToRefresh
+                    // pullDownToRefreshThreshold={125}
+                    // pullDownToRefreshContent={
+                    //     <h3 style={{ textAlign: "center" }}>
+                    //         👇 Pull down to refresh
+                    //     </h3>
+                    // }
+                    // releaseToRefreshContent={
+                    //     <h3 style={{ textAlign: "center" }}>
+                    //         👆 Release to refresh
+                    //     </h3>
+                    // }
                 >
                     {items.map((txn, index) => (
                         <div style={{ marginBottom: 15 }} key={index}>
