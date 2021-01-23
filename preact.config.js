@@ -1,4 +1,5 @@
 import { resolve } from "path";
+import envVars from "preact-cli-plugin-env-vars";
 
 export default {
     /**
@@ -22,9 +23,12 @@ export default {
 
         // Use any `index` file, not just index.js
         config.resolve.alias["preact-cli-entrypoint"] = resolve(
+            // eslint-disable-next-line no-undef
             process.cwd(),
             "src",
             "index"
         );
+
+        envVars(config, env, helpers);
     }
 };
