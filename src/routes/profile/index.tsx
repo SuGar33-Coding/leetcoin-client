@@ -1,3 +1,4 @@
+import { Button, Paper, Typography } from "@material-ui/core";
 import { FunctionalComponent, h } from "preact";
 import { route } from "preact-router";
 import { useEffect, useState } from "preact/hooks";
@@ -44,26 +45,44 @@ const Profile: FunctionalComponent = () => {
 
     const renderProfile = () => {
         return (
-            <div class={style.profile}>
-                <h4>Hello, {Local.getName()}</h4>
+            <div>
+                <Typography variant="h5">Hello, {Local.getName()}</Typography>
 
-                <h2>Balance: {balance} LC</h2>
+                <Typography variant="h4">Balance: {balance} LC</Typography>
 
-                <button onClick={handleMakeTransfer}>Make Transfer</button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleMakeTransfer}
+                >
+                    Make Transfer
+                </Button>
                 <br />
                 <br />
-                <button onClick={handlePayment}>Make Payment</button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handlePayment}
+                >
+                    Make Payment
+                </Button>
                 <br />
                 <br />
                 <br />
-                <button onClick={handleLogout}>Logout</button>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={handleLogout}
+                >
+                    Logout
+                </Button>
             </div>
         );
     };
 
     const renderLogin = () => {
         return (
-            <div class={style.profile}>
+            <div>
                 {isCreatingAccount ? (
                     <h1>Please input credentials</h1>
                 ) : (
@@ -82,7 +101,11 @@ const Profile: FunctionalComponent = () => {
         );
     };
 
-    return Local.isLoggedIn() ? renderProfile() : renderLogin();
+    return (
+        <Paper square className={style.profile}>
+            {Local.isLoggedIn() ? renderProfile() : renderLogin()}
+        </Paper>
+    );
 };
 
 export default Profile;

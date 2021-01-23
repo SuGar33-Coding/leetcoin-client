@@ -5,6 +5,7 @@ import { clearAllBodyScrollLocks, disableBodyScroll } from "body-scroll-lock";
 import { useEffect, useState } from "preact/hooks";
 import { Api } from "../../utils/api";
 import moment from "moment";
+import { Paper, Typography } from "@material-ui/core";
 
 interface Transaction {
     type: "TRANSACTION" | "TRANSFER" | "PAYMENT";
@@ -45,12 +46,12 @@ const Transactions: FunctionalComponent = () => {
         fetchMore();
         disableBodyScroll(targetElement.current);
 
-        return clearAllBodyScrollLocks;
+        // return clearAllBodyScrollLocks;
     }, [targetElement]);
 
     return (
-        <div class={style.home}>
-            <h1>Transactions</h1>
+        <Paper className={style.home} square>
+            <Typography variant="h4">Transactions</Typography>
             <div
                 ref={targetElement}
                 id="transactionContainer"
@@ -123,7 +124,7 @@ const Transactions: FunctionalComponent = () => {
                     ))}
                 </InfiniteScroll>
             </div>
-        </div>
+        </Paper>
     );
 };
 
