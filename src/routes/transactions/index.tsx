@@ -46,11 +46,11 @@ const Transactions: FunctionalComponent = () => {
         fetchMore();
         disableBodyScroll(targetElement.current);
 
-        // return clearAllBodyScrollLocks;
+        return clearAllBodyScrollLocks;
     }, [targetElement]);
 
     return (
-        <Paper className={style.home} square>
+        <div class={style.home}>
             <Typography variant="h4">Transactions</Typography>
             <div
                 ref={targetElement}
@@ -124,7 +124,7 @@ const Transactions: FunctionalComponent = () => {
                     ))}
                 </InfiniteScroll>
             </div>
-        </Paper>
+        </div>
     );
 };
 

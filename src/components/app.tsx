@@ -14,6 +14,7 @@ import {
     BottomNavigation,
     BottomNavigationAction,
     createMuiTheme,
+    CssBaseline,
     FormControlLabel,
     FormGroup,
     Switch,
@@ -31,7 +32,7 @@ const App: FunctionalComponent = () => {
     const ref = createRef();
 
     useEffect(() => {
-        disableBodyScroll(ref.current);
+        // disableBodyScroll(ref.current);
         setCurRoute(getCurrentUrl());
     }, []);
 
@@ -50,6 +51,7 @@ const App: FunctionalComponent = () => {
     return (
         <div id="app">
             <ThemeProvider theme={theme}>
+                <CssBaseline />
                 {/* <Header /> */}
                 <AppBar ref={ref} position="static">
                     <Toolbar>

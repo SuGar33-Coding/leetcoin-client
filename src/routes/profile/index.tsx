@@ -102,9 +102,9 @@ const Profile: FunctionalComponent = () => {
     };
 
     return (
-        <Paper square className={style.profile}>
+        <div class={style.profile}>
             {Local.isLoggedIn() ? renderProfile() : renderLogin()}
-        </Paper>
+        </div>
     );
 };
 
