@@ -118,6 +118,17 @@ export const Api = {
         return res.ok;
     },
 
+    makeEarnings: async (name: string, amt: number, type: string) => {
+        const params = {
+            name,
+            amt,
+            type
+        };
+        const res = await fetchWrapper.post("/wallet/earnings", params);
+
+        return res.ok;
+    },
+
     getUser: async (name: string) => {
         const params = {
             name
