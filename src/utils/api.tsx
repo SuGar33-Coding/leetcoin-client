@@ -1,4 +1,3 @@
-// TODO: figure out how to env this
 const BASE_URL = `http://${process.env.PREACT_APP_API_BASE_URL}/api`;
 
 const customFetch = async (
