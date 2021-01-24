@@ -25,16 +25,16 @@ const Payment: FunctionalComponent = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-        const isPayOk = await Api.makePayment(
-            Local.getName() as string,
-            Local.getPass() as string,
-            amtValue,
-            noteValue
-        );
-        if (isPayOk) {
+        try {
+            await Api.makePayment(
+                Local.getName() as string,
+                Local.getPass() as string,
+                amtValue,
+                noteValue
+            );
             alert(`Payment of ${amtValue} was good!`);
             route("/profile");
-        } else {
+        } catch (error) {
             alert(`Payment failed! 😞`);
             window.location.reload();
         }

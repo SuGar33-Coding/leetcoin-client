@@ -43,14 +43,10 @@ const Earnings: FunctionalComponent<Props> = (props: Props) => {
 
     const confirmEarningsHandler = async () => {
         const name = Local.isLoggedIn() ? Local.getName() : inputName;
-        const isTransactionOk = await Api.makeEarnings(
-            name as string,
-            amt,
-            type
-        );
-        if (isTransactionOk) {
+        try {
+            await Api.makeEarnings(name as string, amt, type);
             alert(`Earnings of ${amt} was good! :3`);
-        } else {
+        } catch (error) {
             alert(`Oh nOwO the earnings failed! 😰`);
         }
         if (Local.isLoggedIn()) {

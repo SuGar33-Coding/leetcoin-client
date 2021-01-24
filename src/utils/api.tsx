@@ -15,10 +15,23 @@ const customFetch = async (
         urlString = urlString.slice(0, -1); // chop off last "&"
     }
     const res = await fetch(urlString, { method });
-    if (!res.ok) {
-        console.error(JSON.stringify(await res.json()));
+    let resBody: any;
+    try {
+        resBody = await res.json();
+    } catch (error) {
+        resBody = {
+            status: res.status
+        };
     }
-    return res;
+
+    if (!res.ok) {
+        const errMsg = resBody.error
+            ? resBody.error.message
+            : `There was an error. Status: ${res.status}`;
+        console.error(resBody);
+        throw new Error(errMsg);
+    }
+    return resBody;
 };
 
 const fetchWrapper = {
@@ -42,8 +55,7 @@ export const Api = {
             name,
             password
         };
-        const res = await fetchWrapper.get("/login", params);
-        return res.ok;
+        await fetchWrapper.get("/login", params);
     },
 
     createAccount: async (name: string, password: string) => {
@@ -51,8 +63,10 @@ export const Api = {
             name,
             password
         };
+
         const res = await fetchWrapper.post("/user", params);
-        return res.ok;
+
+        return await res;
     },
 
     getUserBalance: async (name: string, password: string) => {
@@ -60,14 +74,10 @@ export const Api = {
             name,
             password
         };
+
         const res = await fetchWrapper.get("/wallet/balance", params);
 
-        if (res.ok) {
-            return parseFloat(await res.text());
-        } else {
-            // TODO: Throw error
-            return -1;
-        }
+        return res.balance as number;
     },
 
     makeTransaction: async (name: string, amt: number) => {
@@ -75,9 +85,8 @@ export const Api = {
             name,
             amt
         };
-        const res = await fetchWrapper.post("/wallet/transaction", params);
 
-        return res.ok;
+        await fetchWrapper.post("/wallet/transaction", params);
     },
 
     makeTransfer: async (
@@ -92,9 +101,8 @@ export const Api = {
             receiver,
             amt
         };
-        const res = await fetchWrapper.post("/wallet/transfer", params);
 
-        return res.ok;
+        await fetchWrapper.post("/wallet/transfer", params);
     },
 
     makePayment: async (
@@ -112,9 +120,8 @@ export const Api = {
         if (note) {
             params.note = note;
         }
-        const res = await fetchWrapper.post("/wallet/payment", params);
 
-        return res.ok;
+        await fetchWrapper.post("/wallet/payment", params);
     },
 
     makeEarnings: async (name: string, amt: number, type: string) => {
@@ -123,9 +130,8 @@ export const Api = {
             amt,
             type
         };
-        const res = await fetchWrapper.post("/wallet/earnings", params);
 
-        return res.ok;
+        await fetchWrapper.post("/wallet/earnings", params);
     },
 
     getUser: async (name: string) => {
@@ -133,19 +139,11 @@ export const Api = {
             name
         };
 
-        const res = await fetchWrapper.get("/user", params);
-
-        if (!res.ok) {
-            throw new Error("Not found");
-        }
-
-        return await res.json();
+        return await fetchWrapper.get("/user", params);
     },
 
     queryUsers: async () => {
-        const res = await fetchWrapper.get("/users");
-
-        return await res.json();
+        return await fetchWrapper.get("/users");
     },
 
     queryTransactions: async (limit: number) => {
@@ -153,8 +151,6 @@ export const Api = {
             limit
         };
 
-        const res = await fetchWrapper.get("/transactions", params);
-
-        return await res.json();
+        return await fetchWrapper.get("/transactions", params);
     }
 };

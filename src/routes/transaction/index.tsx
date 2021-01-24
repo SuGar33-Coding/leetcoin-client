@@ -23,10 +23,10 @@ const Transaction: FunctionalComponent = () => {
 
     const confirmTransactionHandler = async () => {
         const name = Local.isLoggedIn() ? Local.getName() : inputName;
-        const isTransactionOk = await Api.makeTransaction(name as string, amt);
-        if (isTransactionOk) {
+        try {
+            await Api.makeTransaction(name as string, amt);
             alert(`Transaction of ${amt} was good! :3`);
-        } else {
+        } catch (error) {
             alert(`Oh nOwO the transaction failed! 😰`);
         }
         if (Local.isLoggedIn()) {

@@ -16,12 +16,17 @@ const Profile: FunctionalComponent = () => {
     useEffect(() => {
         async function fetchBalance() {
             if (Local.isLoggedIn()) {
-                const balance = await Api.getUserBalance(
-                    Local.getName() as string,
-                    Local.getPass() as string
-                );
-                setBalance(balance);
-                Local.setBalance(balance);
+                try {
+                    const balance = await Api.getUserBalance(
+                        Local.getName() as string,
+                        Local.getPass() as string
+                    );
+                    setBalance(balance);
+                    Local.setBalance(balance);
+                } catch (error) {
+                    setBalance(-1);
+                    Local.setBalance(-1);
+                }
             }
         }
 

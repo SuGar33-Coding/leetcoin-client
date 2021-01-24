@@ -1,3 +1,4 @@
+import { Button, TextField } from "@material-ui/core";
 import { FunctionalComponent, h } from "preact";
 import { useState } from "preact/hooks";
 import { Api } from "../../utils/api";
@@ -10,13 +11,15 @@ const CreateAccount: FunctionalComponent = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleFormSubmit = async (event: any) => {
         event.preventDefault();
-        if (await Api.createAccount(userName, password)) {
+        try {
+            await Api.createAccount(userName, password);
             Local.setName(userName);
             Local.setPass(password);
-        } else {
-            alert(`${userName}, your account creation has failed.`);
+            window.location.reload();
+        } catch (error) {
+            alert(`${userName}, your account creation has failed.
+            \nReason: ${error.message}`);
         }
-        window.location.reload();
     };
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -31,27 +34,26 @@ const CreateAccount: FunctionalComponent = () => {
 
     return (
         <form onSubmit={async event => await handleFormSubmit(event)}>
-            <label>
-                Username: <br />
-                <input
-                    type="text"
-                    // eslint-disable-next-line react/no-unknown-property
-                    autocomplete="username"
+            <div>
+                <TextField
+                    label="Username"
+                    variant="outlined"
                     onChange={handleUsernameFieldChange}
                 />
-            </label>
-            <br />
-            <label>
-                Password: <br />
-                <input
+            </div>
+            <div>
+                <TextField
+                    margin="normal"
                     type="password"
-                    // eslint-disable-next-line react/no-unknown-property
-                    autocomplete="new-password"
+                    autoComplete="current-password"
+                    label="Password"
+                    variant="outlined"
                     onChange={handlePasswordFieldChange}
                 />
-            </label>
-            <br />
-            <input type="submit" value="Create Account" />
+            </div>
+            <Button type="submit" variant="contained" color="primary">
+                Create Account
+            </Button>
         </form>
     );
 };

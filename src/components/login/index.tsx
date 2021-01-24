@@ -11,10 +11,11 @@ const Login: FunctionalComponent = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleFormSubmit = async (event: any) => {
         event.preventDefault();
-        if (await Api.login(userName, password)) {
+        try {
+            await Api.login(userName, password);
             Local.setName(userName);
             Local.setPass(password);
-        } else {
+        } catch (error) {
             alert(
                 `${userName}, your login attempt has failed.` +
                     "\n\nI would really appreciate it if you checked your credentials and tried logging in again." +
@@ -38,15 +39,6 @@ const Login: FunctionalComponent = () => {
 
     return (
         <form onSubmit={async event => await handleFormSubmit(event)}>
-            {/* <label>
-                Username: <br />
-                <input
-                    type="text"
-                    // eslint-disable-next-line react/no-unknown-property
-                    autocomplete="username"
-                    onChange={handleUsernameFieldChange}
-                />
-            </label> */}
             <div>
                 <TextField
                     label="Username"
@@ -54,16 +46,6 @@ const Login: FunctionalComponent = () => {
                     onChange={handleUsernameFieldChange}
                 />
             </div>
-            {/* <label>
-                Password: <br />
-                <input
-                    type="password"
-                    // eslint-disable-next-line react/no-unknown-property
-                    autocomplete="current-password"
-                    onChange={handlePasswordFieldChange}
-                />
-            </label>
-            <br /> */}
             <div>
                 <TextField
                     margin="normal"

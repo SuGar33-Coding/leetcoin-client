@@ -25,15 +25,15 @@ const Transfer: FunctionalComponent = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleTransferSubmit = async (event: any) => {
         event.preventDefault();
-        const isTransferGood = await Api.makeTransfer(
-            Local.getName() as string,
-            Local.getPass() as string,
-            userValue,
-            amountValue
-        );
-        if (isTransferGood) {
+        try {
+            await Api.makeTransfer(
+                Local.getName() as string,
+                Local.getPass() as string,
+                userValue,
+                amountValue
+            );
             alert(`Sent ${amountValue} LC to ${userValue}! 😊`);
-        } else {
+        } catch (error) {
             alert("Transaction failed for some reason!");
         }
         window.location.reload();
