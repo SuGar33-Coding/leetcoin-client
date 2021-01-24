@@ -1,3 +1,4 @@
+import { Button, TextField } from "@material-ui/core";
 import { FunctionalComponent, h } from "preact";
 import { useState } from "preact/hooks";
 import { Api } from "../../utils/api";
@@ -37,7 +38,7 @@ const Login: FunctionalComponent = () => {
 
     return (
         <form onSubmit={async event => await handleFormSubmit(event)}>
-            <label>
+            {/* <label>
                 Username: <br />
                 <input
                     type="text"
@@ -45,9 +46,15 @@ const Login: FunctionalComponent = () => {
                     autocomplete="username"
                     onChange={handleUsernameFieldChange}
                 />
-            </label>
-            <br />
-            <label>
+            </label> */}
+            <div>
+                <TextField
+                    label="Username"
+                    variant="outlined"
+                    onChange={handleUsernameFieldChange}
+                />
+            </div>
+            {/* <label>
                 Password: <br />
                 <input
                     type="password"
@@ -56,8 +63,20 @@ const Login: FunctionalComponent = () => {
                     onChange={handlePasswordFieldChange}
                 />
             </label>
-            <br />
-            <input type="submit" value="Login" />
+            <br /> */}
+            <div>
+                <TextField
+                    margin="normal"
+                    type="password"
+                    autoComplete="current-password"
+                    label="Password"
+                    variant="outlined"
+                    onChange={handlePasswordFieldChange}
+                />
+            </div>
+            <Button type="submit" variant="contained" color="primary">
+                Login
+            </Button>
         </form>
     );
 };

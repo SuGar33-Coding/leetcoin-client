@@ -90,13 +90,16 @@ const Profile: FunctionalComponent = () => {
                 )}
                 {isCreatingAccount ? <CreateAccount /> : <Login />}
                 <br />
-                <button
+                <br />
+                <Button
+                    variant="contained"
+                    color="secondary"
                     onClick={() => setIsCreatingAccount(!isCreatingAccount)}
                 >
                     {isCreatingAccount
                         ? "Log in instead"
                         : "Create new account"}
-                </button>
+                </Button>
             </div>
         );
     };
