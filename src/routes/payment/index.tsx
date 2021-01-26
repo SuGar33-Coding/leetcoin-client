@@ -1,3 +1,4 @@
+import { Button, TextField } from "@material-ui/core";
 import { FunctionalComponent, h } from "preact";
 import { route } from "preact-router";
 import { useState } from "preact/hooks";
@@ -45,28 +46,35 @@ const Payment: FunctionalComponent = () => {
             <h1>Make Payment 😎</h1>
             {Local.isLoggedIn() ? "" : <NotLoggedIn page="Payment" />}
             <form onSubmit={async event => await handleSubmit(event)}>
-                <label>
-                    Amount:
-                    <br />
-                    <input
+                <div>
+                    <TextField
+                        margin="normal"
                         type="number"
-                        step="any"
+                        required
+                        label="Amount"
+                        variant="outlined"
                         onInput={handleAmtValueChange}
                     />
-                </label>
-                <br />
-                <br />
-                <label>
-                    Note (optional):
-                    <br />
-                    <textarea
+                </div>
+                <div>
+                    <TextField
+                        margin="normal"
+                        label="Note (optional)"
+                        variant="outlined"
+                        multiline
+                        rowsMax={6}
                         value={noteValue}
                         onInput={handleNoteValueChange}
-                    ></textarea>
-                </label>
-                <br />
-                <br />
-                <input type="submit" value="Submit" disabled={amtValue <= 0} />
+                    />
+                </div>
+                <Button
+                    style={{ marginTop: 15 }}
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                >
+                    Submit
+                </Button>
             </form>
         </div>
     );
