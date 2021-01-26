@@ -2,6 +2,7 @@ import { FunctionalComponent, h } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { Api } from "../../utils/api";
 import { Local } from "../../utils/local";
+import style from "./style.css";
 
 interface Props {
     /**
@@ -49,6 +50,7 @@ const UserSelect: FunctionalComponent<Props> = (props: Props) => {
         <div>
             <input
                 type="text"
+                class={style.input}
                 id="users-list-input"
                 list="users-list"
                 onInput={handleInputChange}
