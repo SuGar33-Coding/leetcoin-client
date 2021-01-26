@@ -1,3 +1,4 @@
+import { Button, TextField } from "@material-ui/core";
 import { FunctionalComponent, h } from "preact";
 import { useState } from "preact/hooks";
 import NotLoggedIn from "../../components/not-logged-in";
@@ -43,7 +44,10 @@ const Transfer: FunctionalComponent = () => {
         <div class={style.transfer}>
             <h1>Transfer LeetCoin! 💸</h1>
             {Local.isLoggedIn() ? "" : <NotLoggedIn page="Transfer" />}
-            <div hidden={!Local.isLoggedIn()}>
+            <form
+                onSubmit={async event => await handleTransferSubmit(event)}
+                hidden={!Local.isLoggedIn()}
+            >
                 <label>Receiving User:</label>
                 <br />
                 <UserSelect
@@ -51,25 +55,35 @@ const Transfer: FunctionalComponent = () => {
                     filterLoggedInUser={true}
                 />
                 <br />
-                <form
-                    onSubmit={async event => await handleTransferSubmit(event)}
-                >
-                    <label>Amount:</label>
-                    <br />
-                    <input
+                {/* <label>Amount:</label>
+                <br />
+                <input
+                    type="number"
+                    step="any"
+                    onInput={handleAmountInputChange}
+                />
+                <br />
+                <br /> */}
+                <div>
+                    <TextField
+                        margin="normal"
                         type="number"
-                        step="any"
+                        required
+                        label="Amount"
+                        variant="outlined"
                         onInput={handleAmountInputChange}
                     />
-                    <br />
-                    <br />
-                    <input
-                        type="submit"
-                        value="Confirm Transfer"
-                        disabled={!isValidUser || !(amountValue > 0)}
-                    />
-                </form>
-            </div>
+                </div>
+                <Button
+                    style={{ marginTop: 15 }}
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    disabled={!isValidUser}
+                >
+                    Confirm Transfer
+                </Button>
+            </form>
         </div>
     );
 };
