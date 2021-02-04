@@ -26,19 +26,43 @@ const Earnings: FunctionalComponent<Props> = (props: Props) => {
     };
 
     useEffect(() => {
+        let newDesc: string;
+        let newAmt: number;
         switch (type) {
             case "dishes-small":
-                setTypeDescription("small dishes load 💦🍽💦");
-                setAmt(5);
+                newDesc =
+                    "small dishes load 💦🍽💦 (including dishwasher load/unload)";
+                newAmt = 10;
                 break;
             case "dishes-big":
-                setTypeDescription("large dishes load 💦🍽🍽🍽💦🥵");
-                setAmt(10);
+                newDesc =
+                    "large dishes load 💦🍽🧽🍽💦🥵 (including dishwasher load/unload)";
+                newAmt = 25;
+                break;
+            case "clean-bathroom":
+                newDesc = "cleaning a bathroom 🚽🚿✨";
+                newAmt = 40;
+                break;
+            case "clean-common-room":
+                newDesc = "cleaning the common room 📺🛋🐈";
+                newAmt = 30;
+                break;
+            case "clean-kitchen":
+                newDesc = "cleaning the kitchen 🍽🍜🍮";
+                newAmt = 50;
+                break;
+            case "do-garbage":
+                newDesc = "taking out the garbage/recyclables ♻🍾🥫";
+                newAmt = 5;
                 break;
             default:
+                newDesc = "";
+                newAmt = 0;
                 route("/notfound");
                 break;
         }
+        setTypeDescription(newDesc);
+        setAmt(newAmt);
     }, [type]);
 
     const confirmEarningsHandler = async () => {
