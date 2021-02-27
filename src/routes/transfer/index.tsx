@@ -11,6 +11,7 @@ const Transfer: FunctionalComponent = () => {
 	const [userValue, setUserValue] = useState<string>("");
 	const [amountValue, setAmountValue] = useState<number>(0);
 	const [isValidUser, setIsValidUser] = useState<boolean>(false);
+	const [isValidAmount, setIsValidAmount] = useState<boolean>(true);
 
 	const handleUserInputChange = (selectedInput: string, isUser: boolean) => {
 		setUserValue(selectedInput);
@@ -19,13 +20,21 @@ const Transfer: FunctionalComponent = () => {
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const handleAmountInputChange = (event: any) => {
-		const amt = event.target.value;
+		const amt = parseFloat(event.target.value);
+		console.log(amt);
+		setIsValidAmount(isNaN(amt) ? false : true);
 		setAmountValue(amt);
 	};
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const handleTransferSubmit = async (event: any) => {
 		event.preventDefault();
+		console.log(isValidAmount);
+		if (!isValidAmount) {
+			alert("Not a valid LC amount!");
+			window.location.reload();
+			return;
+		}
 		try {
 			await Api.makeTransfer(
 				Local.getName() as string,
@@ -55,20 +64,12 @@ const Transfer: FunctionalComponent = () => {
 					filterLoggedInUser={true}
 				/>
 				<br />
-				{/* <label>Amount:</label>
-                <br />
-                <input
-                    type="number"
-                    step="any"
-                    onInput={handleAmountInputChange}
-                />
-                <br />
-                <br /> */}
 				<div>
 					<TextField
 						margin="normal"
-						type="number"
+						type="text"
 						required
+						error={!isValidAmount}
 						label="Amount"
 						variant="outlined"
 						onInput={handleAmountInputChange}
