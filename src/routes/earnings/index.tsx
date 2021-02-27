@@ -25,45 +25,60 @@ const Earnings: FunctionalComponent<Props> = (props: Props) => {
         setIsValidInput(isUser);
     };
 
-    useEffect(() => {
-        let newDesc: string;
-        let newAmt: number;
-        switch (type) {
-            case "dishes-small":
-                newDesc =
-                    "small dishes load 💦🍽💦 (including dishwasher load/unload)";
-                newAmt = 10;
-                break;
-            case "dishes-big":
-                newDesc =
-                    "large dishes load 💦🍽🧽🍽💦🥵 (including dishwasher load/unload)";
-                newAmt = 25;
-                break;
-            case "clean-bathroom":
-                newDesc = "cleaning a bathroom 🚽🚿✨";
-                newAmt = 40;
-                break;
-            case "clean-common-room":
-                newDesc = "cleaning the common room 📺🛋🐈";
-                newAmt = 30;
-                break;
-            case "clean-kitchen":
-                newDesc = "cleaning the kitchen 🍽🍜🍮";
-                newAmt = 50;
-                break;
-            case "do-garbage":
-                newDesc = "taking out the garbage/recyclables ♻🍾🥫";
-                newAmt = 5;
-                break;
-            default:
-                newDesc = "";
-                newAmt = 0;
-                route("/notfound");
-                break;
+    const earningsTypes: {
+        [key: string]: { description: string; amount: number };
+    } = {
+        "small-dish": {
+            description:
+                "small dishes load 💦🍽💦 e.g. unloading drying rack, clearing out half-full sink",
+            amount: 0.05
+        },
+        "large-dish": {
+            description: "large dishes load 💦🍽🧽🍽💦🥵 e.g. clearing full sink",
+            amount: 0.146
+        },
+        "unload-washer": {
+            description: "unload all the clean dishes from the washer 👋🍽",
+            amount: 0.101
+        },
+        "small-clean": {
+            description:
+                "small cleaning task 🧹🍃 e.g. pick up trash around the apartment, wipe off tables, organize items",
+            amount: 0.057
+        },
+        "clean-kitchen": {
+            description:
+                "deep clean of the kitchen 🍴🍽🧽🧽 includes cleaning dishes",
+            amount: 0.3
+        },
+        "clean-bathroom": {
+            description: "deep clean of a bathroom 🧽🛁🚿🧼🧽",
+            amount: 0.4
+        },
+        "clean-common-room": {
+            description: "deep clean of the common room 🧹🧹🗑",
+            amount: 0.2783
+        },
+        groceries: {
+            description: "order/bring up/put away groceries 🍙🥦🧃",
+            amount: 0.05
+        },
+        trash: {
+            description: "take a trip outside to deliver some trash 🗑♻️",
+            amount: 0.775
         }
-        setTypeDescription(newDesc);
-        setAmt(newAmt);
-    }, [type]);
+    };
+
+    useEffect(() => {
+        const earning = earningsTypes[type];
+
+        if (!earning) {
+            route("/notfound");
+        }
+
+        setTypeDescription(earning.description);
+        setAmt(earning.amount);
+    }, [earningsTypes, type]);
 
     const confirmEarningsHandler = async () => {
         const name = Local.isLoggedIn() ? Local.getName() : inputName;
