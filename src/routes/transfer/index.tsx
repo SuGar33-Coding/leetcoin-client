@@ -21,7 +21,6 @@ const Transfer: FunctionalComponent = () => {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const handleAmountInputChange = (event: any) => {
 		const amt = parseFloat(event.target.value);
-		console.log(amt);
 		setIsValidAmount(isNaN(amt) ? false : true);
 		setAmountValue(amt);
 	};
