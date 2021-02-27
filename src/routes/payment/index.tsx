@@ -10,10 +10,12 @@ import style from "./style.css";
 const Payment: FunctionalComponent = () => {
 	const [amtValue, setAmtValue] = useState<number>(0);
 	const [noteValue, setNoteValue] = useState<string>("");
+	const [isValidAmount, setIsValidAmount] = useState<boolean>(true);
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const handleAmtValueChange = (event: any) => {
 		const amt = parseFloat(event.target.value);
+		setIsValidAmount(isNaN(amt) ? false : true);
 		setAmtValue(amt);
 	};
 
@@ -26,6 +28,11 @@ const Payment: FunctionalComponent = () => {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const handleSubmit = async (event: any) => {
 		event.preventDefault();
+		if (!isValidAmount) {
+			alert("Not a valid LC amount!");
+			window.location.reload();
+			return;
+		}
 		try {
 			await Api.makePayment(
 				Local.getName() as string,
@@ -49,8 +56,9 @@ const Payment: FunctionalComponent = () => {
 				<div>
 					<TextField
 						margin="normal"
-						type="number"
+						type="text"
 						required
+						error={!isValidAmount}
 						label="Amount"
 						variant="outlined"
 						onInput={handleAmtValueChange}
