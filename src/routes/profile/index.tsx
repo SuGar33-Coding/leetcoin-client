@@ -9,111 +9,111 @@ import { Local } from "../../utils/local";
 import style from "./style.css";
 
 const Profile: FunctionalComponent = () => {
-    const [isCreatingAccount, setIsCreatingAccount] = useState<boolean>(false);
-    const [balance, setBalance] = useState<number>(Local.getBalance());
+	const [isCreatingAccount, setIsCreatingAccount] = useState<boolean>(false);
+	const [balance, setBalance] = useState<number>(Local.getBalance());
 
-    // gets called when this route is navigated to
-    useEffect(() => {
-        async function fetchBalance() {
-            if (Local.isLoggedIn()) {
-                try {
-                    const balance = await Api.getUserBalance(
-                        Local.getName() as string,
-                        Local.getPass() as string
-                    );
-                    setBalance(balance);
-                    Local.setBalance(balance);
-                } catch (error) {
-                    setBalance(-1);
-                    Local.setBalance(-1);
-                }
-            }
-        }
+	// gets called when this route is navigated to
+	useEffect(() => {
+		async function fetchBalance() {
+			if (Local.isLoggedIn()) {
+				try {
+					const balance = await Api.getUserBalance(
+						Local.getName() as string,
+						Local.getPass() as string
+					);
+					setBalance(balance);
+					Local.setBalance(balance);
+				} catch (error) {
+					setBalance(-1);
+					Local.setBalance(-1);
+				}
+			}
+		}
 
-        fetchBalance();
+		fetchBalance();
 
-        // gets called just before navigating away from the route
-    }, []);
+		// gets called just before navigating away from the route
+	}, []);
 
-    const handleMakeTransfer = () => {
-        route("/transfer");
-    };
+	const handleMakeTransfer = () => {
+		route("/transfer");
+	};
 
-    const handlePayment = () => {
-        route("/payment");
-    };
+	const handlePayment = () => {
+		route("/payment");
+	};
 
-    const handleLogout = () => {
-        Local.clear();
-        window.location.reload();
-    };
+	const handleLogout = () => {
+		Local.clear();
+		window.location.reload();
+	};
 
-    const renderProfile = () => {
-        return (
-            <div>
-                <Typography variant="h5">Hello, {Local.getName()}</Typography>
+	const renderProfile = () => {
+		return (
+			<div>
+				<Typography variant="h5">Hello, {Local.getName()}</Typography>
 
-                <Typography variant="h4">Balance: {balance} LC</Typography>
+				<Typography variant="h4">Balance: {balance} LC</Typography>
 
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleMakeTransfer}
-                >
-                    Make Transfer
-                </Button>
-                <br />
-                <br />
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handlePayment}
-                >
-                    Make Payment
-                </Button>
-                <br />
-                <br />
-                <br />
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={handleLogout}
-                >
-                    Logout
-                </Button>
-            </div>
-        );
-    };
+				<Button
+					variant="contained"
+					color="primary"
+					onClick={handleMakeTransfer}
+				>
+					Make Transfer
+				</Button>
+				<br />
+				<br />
+				<Button
+					variant="contained"
+					color="primary"
+					onClick={handlePayment}
+				>
+					Make Payment
+				</Button>
+				<br />
+				<br />
+				<br />
+				<Button
+					variant="contained"
+					color="secondary"
+					onClick={handleLogout}
+				>
+					Logout
+				</Button>
+			</div>
+		);
+	};
 
-    const renderLogin = () => {
-        return (
-            <div>
-                {isCreatingAccount ? (
-                    <h1>Please input credentials</h1>
-                ) : (
-                    <h1>Please login</h1>
-                )}
-                {isCreatingAccount ? <CreateAccount /> : <Login />}
-                <br />
-                <br />
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={() => setIsCreatingAccount(!isCreatingAccount)}
-                >
-                    {isCreatingAccount
-                        ? "Log in instead"
-                        : "Create new account"}
-                </Button>
-            </div>
-        );
-    };
+	const renderLogin = () => {
+		return (
+			<div>
+				{isCreatingAccount ? (
+					<h1>Please input credentials</h1>
+				) : (
+					<h1>Please login</h1>
+				)}
+				{isCreatingAccount ? <CreateAccount /> : <Login />}
+				<br />
+				<br />
+				<Button
+					variant="contained"
+					color="secondary"
+					onClick={() => setIsCreatingAccount(!isCreatingAccount)}
+				>
+					{isCreatingAccount
+						? "Log in instead"
+						: "Create new account"}
+				</Button>
+			</div>
+		);
+	};
 
-    return (
-        <div class={style.profile}>
-            {Local.isLoggedIn() ? renderProfile() : renderLogin()}
-        </div>
-    );
+	return (
+		<div class={style.profile}>
+			{Local.isLoggedIn() ? renderProfile() : renderLogin()}
+		</div>
+	);
 };
 
 export default Profile;
