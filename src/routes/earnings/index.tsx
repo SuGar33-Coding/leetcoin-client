@@ -65,7 +65,7 @@ const Earnings: FunctionalComponent<Props> = (props: Props) => {
 		},
 		trash: {
 			description: "take a trip outside to deliver some trash 🗑♻️",
-			amount: 0.775
+			amount: 0.0775
 		}
 	};
 
