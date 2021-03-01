@@ -106,7 +106,7 @@ const Transactions: FunctionalComponent = () => {
 								<span hidden={!txn.secondaryWallet}>
 									<br />
 									<span class={style.infoLabel}>
-										To
+										From
 									</span>:{" "}
 									<span class={style.info}>
 										{txn.secondaryWallet?.slice(-10)}
