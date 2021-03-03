@@ -33,7 +33,6 @@ const Transactions: FunctionalComponent = () => {
 			} else {
 				setItems(transactions);
 				setItemsLength(itemsLength + itemsLengthIncAmt);
-				console.log(itemsLength);
 			}
 		});
 	};
