@@ -19,7 +19,7 @@ interface Transaction {
 }
 
 const Transactions: FunctionalComponent = () => {
-	const itemsLengthIncAmt = 20;
+	const itemsLengthIncAmt = 15;
 	const targetElement = createRef();
 	const [itemsLength, setItemsLength] = useState<number>(itemsLengthIncAmt);
 	const [items, setItems] = useState<Transaction[]>([]);
@@ -33,13 +33,9 @@ const Transactions: FunctionalComponent = () => {
 			} else {
 				setItems(transactions);
 				setItemsLength(itemsLength + itemsLengthIncAmt);
+				console.log(itemsLength);
 			}
 		});
-	};
-
-	const refresh = () => {
-		setItemsLength(itemsLengthIncAmt);
-		fetchMore();
 	};
 
 	useEffect(() => {
@@ -47,7 +43,8 @@ const Transactions: FunctionalComponent = () => {
 		disableBodyScroll(targetElement.current);
 
 		return clearAllBodyScrollLocks;
-	}, [targetElement]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<div class={style.home}>
@@ -63,19 +60,6 @@ const Transactions: FunctionalComponent = () => {
 					hasMore={hasMore}
 					loader={<h4>Loading...</h4>}
 					scrollableTarget="transactionContainer"
-					// refreshFunction={refresh}
-					// pullDownToRefresh
-					// pullDownToRefreshThreshold={125}
-					// pullDownToRefreshContent={
-					//     <h3 style={{ textAlign: "center" }}>
-					//         👇 Pull down to refresh
-					//     </h3>
-					// }
-					// releaseToRefreshContent={
-					//     <h3 style={{ textAlign: "center" }}>
-					//         👆 Release to refresh
-					//     </h3>
-					// }
 				>
 					{items.map((txn, index) => (
 						<div style={{ marginBottom: 15 }} key={index}>
