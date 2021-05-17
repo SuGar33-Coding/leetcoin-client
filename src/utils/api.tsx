@@ -59,6 +59,7 @@ export const Api = {
 	},
 
 	createAccount: async (name: string, password: string) => {
+		console.log(name)
 		const params = {
 			name,
 			password

@@ -9,6 +9,7 @@ import Header from "./header";
 import Transfer from "../routes/transfer";
 import Payment from "../routes/payment";
 import Earnings from "../routes/earnings";
+import Data from "../routes/data";
 import {
 	AppBar,
 	BottomNavigation,
@@ -78,8 +79,8 @@ const App: FunctionalComponent = () => {
 				</AppBar>
 				<Router>
 					<Route path="/" component={Transactions} />
+					<Route path="/data" component={Data} />
 					<Route path="/profile/" component={Profile} />
-					{/* <Route path="/transaction" component={Transaction} /> */}
 					<Route path="/transfer" component={Transfer} />
 					<Route path="/payment" component={Payment} />
 					<Route path="/earnings/:type" component={Earnings} />
@@ -97,6 +98,11 @@ const App: FunctionalComponent = () => {
 					<BottomNavigationAction
 						label="Transactions"
 						value="/"
+						icon={<span>💸</span>}
+					/>
+					<BottomNavigationAction
+						label="Data"
+						value="/data"
 						icon={<span>📈</span>}
 					/>
 					<BottomNavigationAction
