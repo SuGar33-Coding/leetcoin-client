@@ -4,7 +4,6 @@ import {
 	AreaChart,
 	CartesianGrid,
 	Legend,
-	ResponsiveContainer,
 	Tooltip,
 	XAxis,
 	YAxis
@@ -26,8 +25,19 @@ const ChartPieTasks: FunctionalComponent<Props> = props => {
 		});
 	});
 
+	const colors = [
+		"red",
+		"blue",
+		"green",
+		"yellow",
+		"purple",
+		"pink",
+		"orange",
+		"brown"
+	];
+
 	return (
-		<div className="chart-container" style={{ width: "100%", height: 300 }}>
+		<div>
 			{/* <ResponsiveContainer> */}
 			<div>
 				<AreaChart
@@ -46,15 +56,15 @@ const ChartPieTasks: FunctionalComponent<Props> = props => {
 					<XAxis dataKey="date" tick={{ fill: "#FFF" }} />
 					<YAxis />
 					<Tooltip contentStyle={{ color: "#000" }} />
-					{Array.from(types).map(value => {
+					{Array.from(types).map((value, index) => {
 						return (
 							// eslint-disable-next-line react/jsx-key
 							<Area
 								type="monotone"
 								dataKey={value}
 								stackId="1"
-								stroke="#82ca9d"
-								fill="#82ca9d"
+								stroke={colors[index]}
+								fill={colors[index]}
 							/>
 						);
 					})}

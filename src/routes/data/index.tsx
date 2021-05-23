@@ -1,21 +1,36 @@
+import moment from "moment";
 import { FunctionalComponent, h } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import ChartPieTasks from "../../components/chart-pie-tasks";
 import { Api } from "../../utils/api";
+import { Util } from "../../utils/util";
 import style from "./style.css";
 
 const Data: FunctionalComponent = () => {
-	const [data, setData] = useState<any[]>([]);
+	const [data, setData] = useState<EaringsDayAggData>([]);
 
 	useEffect(() => {
 		const getAgg = async () => {
-			const aggData: any[] = await Api.getEarningsDayAggregate();
-			const cleanData: any[] = [];
-			aggData.forEach(aggDataItem => {
-				const cleanDataItem: any = {};
+			const startDate = moment().subtract(21, "days");
 
-				aggDataItem.NOTE_GROUP.forEach((noteItem: any) => {
-					cleanDataItem[noteItem.NOTE] = noteItem.count;
+			const aggData = await Api.getEarningsDayAggregate(
+				startDate.toString()
+			);
+			const cleanData: EaringsDayAggData = [];
+			const earningsTypes = Util.getEarningsTypes();
+			aggData.forEach(aggDataItem => {
+				const cleanDataItem: { [key: string]: number } = {};
+
+				// Add the retrieved types to that day
+				aggDataItem.note_group.forEach(noteItem => {
+					cleanDataItem[noteItem.note] = noteItem.count;
+				});
+
+				// FIll in the rest of the null types with 0s
+				earningsTypes.forEach(earningsType => {
+					if (!cleanDataItem[earningsType]) {
+						cleanDataItem[earningsType] = 0;
+					}
 				});
 
 				cleanData.push({

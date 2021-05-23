@@ -156,7 +156,15 @@ export const Api = {
 		return await fetchWrapper.get("/transactions", params);
 	},
 
-	getEarningsDayAggregate: async () => {
-		return await fetchWrapper.get("/transactions/earnings/day");
+	getEarningsDayAggregate: async (
+		startDate?: string,
+		endDate?: string
+	): Promise<EaringsDayAggregate> => {
+		const params = {
+			startDate: startDate ? startDate : "",
+			endDate: endDate ? endDate : ""
+		};
+
+		return await fetchWrapper.get("/transactions/earnings/day", params);
 	}
 };
