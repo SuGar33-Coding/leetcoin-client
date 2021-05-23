@@ -59,7 +59,7 @@ export const Api = {
 	},
 
 	createAccount: async (name: string, password: string) => {
-		console.log(name)
+		console.log(name);
 		const params = {
 			name,
 			password
@@ -147,11 +147,16 @@ export const Api = {
 		return await fetchWrapper.get("/users");
 	},
 
-	queryTransactions: async (limit: number) => {
+	queryTransactions: async (limit: number, type?: string) => {
 		const params = {
-			limit
+			limit,
+			type: type ? type : ""
 		};
 
 		return await fetchWrapper.get("/transactions", params);
+	},
+
+	getEarningsDayAggregate: async () => {
+		return await fetchWrapper.get("/transactions/earnings/day");
 	}
 };
