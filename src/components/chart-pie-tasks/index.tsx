@@ -28,10 +28,11 @@ const ChartPieTasks: FunctionalComponent<Props> = props => {
 
 	return (
 		<div className="chart-container" style={{ width: "100%", height: 300 }}>
-			<ResponsiveContainer>
+			{/* <ResponsiveContainer> */}
+			<div>
 				<AreaChart
-					// width={500}
-					// height={400}
+					width={325}
+					height={300}
 					// eslint-disable-next-line react/prop-types
 					data={props.data}
 					margin={{
@@ -58,7 +59,8 @@ const ChartPieTasks: FunctionalComponent<Props> = props => {
 						);
 					})}
 				</AreaChart>
-			</ResponsiveContainer>
+			</div>
+			{/* </ResponsiveContainer> */}
 			<Legend />
 		</div>
 	);
