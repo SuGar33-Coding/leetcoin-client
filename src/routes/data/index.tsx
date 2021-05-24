@@ -11,7 +11,7 @@ const Data: FunctionalComponent = () => {
 
 	useEffect(() => {
 		const getAgg = async () => {
-			const startDate = moment().subtract(21, "days");
+			const startDate = moment().subtract(14, "days");
 
 			const aggData = await Api.getEarningsDayAggregate(
 				startDate.toString()
