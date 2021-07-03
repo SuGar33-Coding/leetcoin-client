@@ -143,8 +143,10 @@ export const Api = {
 		return await fetchWrapper.get("/user", params);
 	},
 
-	queryUsers: async () => {
-		return await fetchWrapper.get("/users");
+	queryUsers: async (populateWallets = false) => {
+		return await fetchWrapper.get(
+			`/users?populateWallets=${populateWallets}`
+		);
 	},
 
 	queryTransactions: async (limit: number, type?: string) => {

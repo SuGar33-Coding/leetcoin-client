@@ -2,6 +2,7 @@ import moment from "moment";
 import { FunctionalComponent, h } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import ChartPieTasks from "../../components/chart-pie-tasks";
+import Leaderboard from "../../components/leaderboard"
 import { Api } from "../../utils/api";
 import { Util } from "../../utils/util";
 import style from "./style.css";
@@ -39,7 +40,6 @@ const Data: FunctionalComponent = () => {
 				});
 			});
 			setData(cleanData);
-			console.log(cleanData);
 		};
 
 		getAgg();
@@ -47,6 +47,7 @@ const Data: FunctionalComponent = () => {
 
 	return (
 		<div class={style.data}>
+			<Leaderboard />
 			<ChartPieTasks data={data} />
 		</div>
 	);
