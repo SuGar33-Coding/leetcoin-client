@@ -37,7 +37,7 @@ const ChartPieTasks: FunctionalComponent<Props> = props => {
 	];
 
 	return (
-		<div>
+		<div style={{ marginBottom: 50 }}>
 			<h2>Completed Tasks</h2>
 			<div>
 				<AreaChart
