@@ -38,7 +38,7 @@ const ChartPieTasks: FunctionalComponent<Props> = props => {
 
 	return (
 		<div>
-			{/* <ResponsiveContainer> */}
+			<h2>Completed Tasks</h2>
 			<div>
 				<AreaChart
 					width={325}

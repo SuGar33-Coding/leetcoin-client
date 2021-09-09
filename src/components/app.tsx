@@ -14,7 +14,7 @@ import {
 	AppBar,
 	BottomNavigation,
 	BottomNavigationAction,
-	createMuiTheme,
+	createTheme,
 	CssBaseline,
 	FormControlLabel,
 	FormGroup,
@@ -37,7 +37,7 @@ const App: FunctionalComponent = () => {
 		setCurRoute(getCurrentUrl());
 	}, []);
 
-	const theme = createMuiTheme({
+	const theme = createTheme({
 		palette: {
 			type: preferDark ? "dark" : "light",
 			primary: {
