@@ -5,6 +5,7 @@ import { Local } from "../../utils/local";
 import style from "./style.css";
 import { route } from "preact-router";
 import UserSelect from "../../components/user-select";
+import { Util } from "../../utils/util";
 
 interface Props {
 	type: string;
@@ -84,6 +85,7 @@ const Earnings: FunctionalComponent<Props> = (props: Props) => {
 		const name = Local.isLoggedIn() ? Local.getName() : inputName;
 		try {
 			await Api.makeEarnings(name as string, amt, type);
+			Util.playDing();
 			alert(`Earnings of ${amt} was good! :3`);
 		} catch (error) {
 			alert(`Oh nOwO the earnings failed! 😰`);

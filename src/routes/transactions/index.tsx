@@ -5,7 +5,7 @@ import { clearAllBodyScrollLocks, disableBodyScroll } from "body-scroll-lock";
 import { useEffect, useState } from "preact/hooks";
 import { Api } from "../../utils/api";
 import moment from "moment";
-import { Paper, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 
 interface Transaction {
 	type: "TRANSACTION" | "TRANSFER" | "PAYMENT";
