@@ -1,5 +1,4 @@
 import {
-	Checkbox,
 	Paper,
 	Table,
 	TableBody,
@@ -29,17 +28,6 @@ const Leaderboard: FunctionalComponent = () => {
 		user: string;
 		balance: number;
 	};
-
-	interface Data {
-		user: string;
-		balance: number;
-	}
-
-	interface HeadCell {
-		id: keyof Data;
-		label: string;
-		numeric: boolean;
-	}
 
 	const [rows, setRows] = useState<Row[]>([]);
 
