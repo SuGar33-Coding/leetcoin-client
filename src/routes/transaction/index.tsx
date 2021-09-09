@@ -6,6 +6,7 @@ import style from "./style.css";
 import qs from "querystring";
 import { route } from "preact-router";
 import UserSelect from "../../components/user-select";
+import { Util } from "../../utils/util";
 
 const Transaction: FunctionalComponent = () => {
 	const params = qs.parse(location.search);
@@ -25,6 +26,7 @@ const Transaction: FunctionalComponent = () => {
 		const name = Local.isLoggedIn() ? Local.getName() : inputName;
 		try {
 			await Api.makeTransaction(name as string, amt);
+			Util.playDing();
 			alert(`Transaction of ${amt} was good! :3`);
 		} catch (error) {
 			alert(`Oh nOwO the transaction failed! 😰`);

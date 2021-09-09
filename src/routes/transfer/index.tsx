@@ -5,6 +5,7 @@ import NotLoggedIn from "../../components/not-logged-in";
 import UserSelect from "../../components/user-select";
 import { Api } from "../../utils/api";
 import { Local } from "../../utils/local";
+import { Util } from "../../utils/util";
 import style from "./style.css";
 
 const Transfer: FunctionalComponent = () => {
@@ -41,6 +42,7 @@ const Transfer: FunctionalComponent = () => {
 				userValue,
 				amountValue
 			);
+			Util.playDing();
 			alert(`Sent ${amountValue} LC to ${userValue}! 😊`);
 		} catch (error) {
 			alert("Transaction failed for some reason!");
