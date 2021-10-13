@@ -9,6 +9,7 @@ import Header from "./header";
 import Transfer from "../routes/transfer";
 import Payment from "../routes/payment";
 import Earnings from "../routes/earnings";
+import TgTransfer from "../routes/tg-transfer";
 import Data from "../routes/data";
 import {
 	AppBar,
@@ -80,8 +81,9 @@ const App: FunctionalComponent = () => {
 				<Router>
 					<Route path="/" component={Transactions} />
 					<Route path="/data" component={Data} />
-					<Route path="/profile/" component={Profile} />
+					<Route path="/profile" component={Profile} />
 					<Route path="/transfer" component={Transfer} />
+					<Route path="/tg-transfer" component={TgTransfer} />
 					<Route path="/payment" component={Payment} />
 					<Route path="/earnings/:type" component={Earnings} />
 					<NotFoundPage default />

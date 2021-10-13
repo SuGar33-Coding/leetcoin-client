@@ -106,6 +106,16 @@ export const Api = {
 		await fetchWrapper.post("/wallet/transfer", params);
 	},
 
+	makeTgTransfer: async (tgId: string, receiver: string, amt: number) => {
+		const params = {
+			telegramId: tgId,
+			receiver,
+			amt
+		};
+
+		await fetchWrapper.post("/wallet/transfer", params);
+	},
+
 	makePayment: async (
 		name: string,
 		password: string,
